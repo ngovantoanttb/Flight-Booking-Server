@@ -259,6 +259,13 @@ const getUserBookingsValidation = [
 		.optional()
 		.isIn(['pending', 'confirmed', 'cancelled', 'completed'])
 		.withMessage('Invalid status value'),
+	query('search')
+		.optional()
+		.trim()
+		.isLength({ min: 3, max: 12 })
+		.withMessage('Search must be between 3 and 12 characters')
+		.matches(/^[A-Za-z0-9-]+$/)
+		.withMessage('Search must be alphanumeric (letters, numbers, dash)'),
 ];
 
 const cancelBookingValidation = [

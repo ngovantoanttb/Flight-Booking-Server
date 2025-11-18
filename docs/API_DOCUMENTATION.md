@@ -228,13 +228,14 @@ GET /api/payments/{payment_id}
 
 #### Get User Bookings
 ```http
-GET /api/users/bookings?status={status}&page={page}&limit={limit}
+GET /api/users/bookings?status={status}&page={page}&limit={limit}&search={booking_reference}
 ```
 
 **Parameters:**
 - `status` (optional): Filter by status ("pending", "confirmed", "cancelled", "completed")
 - `page` (optional): Page number (default: 1)
 - `limit` (optional): Results per page (default: 10)
+- `search` (optional): Search by booking reference code (case-insensitive, accepts partial matches)
 
 **Response:**
 ```json

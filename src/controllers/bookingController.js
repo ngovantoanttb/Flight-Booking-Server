@@ -12,6 +12,7 @@ const {
 	TravelClass,
 	Payment,
 } = require('../models');
+const { Op } = require('sequelize');
 
 const BookingCancellation = require('../models').BookingCancellation || null;
 const Contact = require('../models').Contact || null;
@@ -734,11 +735,17 @@ const bookingController = {
 					'Not authorized to access this route',
 					401
 				);
-			const { page = 1, limit = 10, status } = req.query;
+			const { page = 1, limit = 10, status, search } = req.query;
 			const offset = (parseInt(page) - 1) * parseInt(limit);
 
 			const where = { user_id };
 			if (status) where.status = status;
+			if (search && search.trim()) {
+				const normalizedSearch = search.trim().toUpperCase();
+				where.booking_reference = {
+					[Op.like]: `%${normalizedSearch}%`,
+				};
+			}
 
 			const { rows: bookings, count } = await Booking.findAndCountAll({
 				where,
