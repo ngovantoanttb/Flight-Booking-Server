@@ -1,0 +1,43 @@
+{
+	"id": "payment-api-environment-v2",
+	"name": "Payment API Environment v2",
+	"values": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "jwt_token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzU3OTA5NjIyLCJleHAiOjE3NTc5OTYwMjJ9.eY7Ry0GNp0kQe1zM2BXgGpd80gLPQfwelNltHz7ePt4",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "booking_id",
+			"value": "2",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "app_trans_id",
+			"value": "250915_123456",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "zp_trans_id",
+			"value": "ZP123456789",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "callback_mac",
+			"value": "test_mac_signature",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment"
+}

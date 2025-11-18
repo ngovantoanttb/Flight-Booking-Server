@@ -1,0 +1,310 @@
+{
+  "info": {
+    "name": "Admin API - Full Parameter Requests",
+    "description": "Collection of admin API requests with all available filter parameters",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Sân bay (Airports)",
+      "item": [
+        {
+          "name": "Get Airports - Full Parameters",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/admin/airports?airport_code=SGN&airport_name=Tan%20Son%20Nhat&city=Ho%20Chi%20Minh&airport_type=international&country_id=1&page=1&limit=10",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "admin", "airports"],
+              "query": [
+                {"key": "airport_code", "value": "SGN"},
+                {"key": "airport_name", "value": "Tan Son Nhat"},
+                {"key": "city", "value": "Ho Chi Minh"},
+                {"key": "airport_type", "value": "international"},
+                {"key": "country_id", "value": "1"},
+                {"key": "page", "value": "1"},
+                {"key": "limit", "value": "10"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Airports - By Code",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/admin/airports?airport_code=SGN&page=1&limit=10",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "admin", "airports"],
+              "query": [
+                {"key": "airport_code", "value": "SGN"},
+                {"key": "page", "value": "1"},
+                {"key": "limit", "value": "10"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Hãng hàng không (Airlines)",
+      "item": [
+        {
+          "name": "Get Airlines - Full Parameters",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/admin/airlines?airline_code=VN&airline_name=Vietnam%20Airlines&country_id=1&is_active=true&page=1&limit=10",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "admin", "airlines"],
+              "query": [
+                {"key": "airline_code", "value": "VN"},
+                {"key": "airline_name", "value": "Vietnam Airlines"},
+                {"key": "country_id", "value": "1"},
+                {"key": "is_active", "value": "true"},
+                {"key": "page", "value": "1"},
+                {"key": "limit", "value": "10"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Chuyến bay (Flights)",
+      "item": [
+        {
+          "name": "Get Flights - Full Parameters",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/admin/flights?flight_number=VN494&airline_id=1&flight_type=domestic&status=scheduled&departure_airport_id=1&arrival_airport_id=2&departure_time_from=2025-01-01T00:00:00Z&departure_time_to=2025-12-31T23:59:59Z&arrival_time_from=2025-01-01T00:00:00Z&arrival_time_to=2025-12-31T23:59:59Z&page=1&limit=10",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "admin", "flights"],
+              "query": [
+                {"key": "flight_number", "value": "VN494"},
+                {"key": "airline_id", "value": "1"},
+                {"key": "flight_type", "value": "domestic"},
+                {"key": "status", "value": "scheduled"},
+                {"key": "departure_airport_id", "value": "1"},
+                {"key": "arrival_airport_id", "value": "2"},
+                {"key": "departure_time_from", "value": "2025-01-01T00:00:00Z"},
+                {"key": "departure_time_to", "value": "2025-12-31T23:59:59Z"},
+                {"key": "arrival_time_from", "value": "2025-01-01T00:00:00Z"},
+                {"key": "arrival_time_to", "value": "2025-12-31T23:59:59Z"},
+                {"key": "page", "value": "1"},
+                {"key": "limit", "value": "10"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Hành khách (Passengers)",
+      "item": [
+        {
+          "name": "Get Passengers - Full Parameters",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/admin/passengers?passenger_id=1&first_name=Nguyen&last_name=Van&title=Mr&passport_number=P12345678&date_of_birth=1990-01-01&nationality=Vietnam&passenger_type=adult&page=1&limit=10",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "admin", "passengers"],
+              "query": [
+                {"key": "passenger_id", "value": "1"},
+                {"key": "first_name", "value": "Nguyen"},
+                {"key": "last_name", "value": "Van"},
+                {"key": "title", "value": "Mr"},
+                {"key": "passport_number", "value": "P12345678"},
+                {"key": "date_of_birth", "value": "1990-01-01"},
+                {"key": "nationality", "value": "Vietnam"},
+                {"key": "passenger_type", "value": "adult"},
+                {"key": "page", "value": "1"},
+                {"key": "limit", "value": "10"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Passengers - By Name and Type",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/admin/passengers?first_name=Nguyen&passenger_type=adult&page=1&limit=10",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "admin", "passengers"],
+              "query": [
+                {"key": "first_name", "value": "Nguyen"},
+                {"key": "passenger_type", "value": "adult"},
+                {"key": "page", "value": "1"},
+                {"key": "limit", "value": "10"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Máy bay (Aircraft)",
+      "item": [
+        {
+          "name": "Get Aircraft - Full Parameters",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/admin/aircraft?aircraft_id=1&model=Airbus%20A321&airline_id=1&aircraft_type=Airbus&page=1&limit=10",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "admin", "aircraft"],
+              "query": [
+                {"key": "aircraft_id", "value": "1"},
+                {"key": "model", "value": "Airbus A321"},
+                {"key": "airline_id", "value": "1"},
+                {"key": "aircraft_type", "value": "Airbus"},
+                {"key": "page", "value": "1"},
+                {"key": "limit", "value": "10"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Người liên hệ (Contacts)",
+      "item": [
+        {
+          "name": "Get Contacts - Full Parameters",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/admin/contacts?contact_id=1&first_name=Nguyen&last_name=Van&phone=%2B84901234567&email=example%40email.com&page=1&limit=10",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "admin", "contacts"],
+              "query": [
+                {"key": "contact_id", "value": "1"},
+                {"key": "first_name", "value": "Nguyen"},
+                {"key": "last_name", "value": "Van"},
+                {"key": "phone", "value": "+84901234567"},
+                {"key": "email", "value": "example@email.com"},
+                {"key": "page", "value": "1"},
+                {"key": "limit", "value": "10"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. Khuyến mãi (Promotions)",
+      "item": [
+        {
+          "name": "Get Promotions - Full Parameters",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/admin/promotions?promotion_code=FIRSTTIME&description=First%20Time%20Customer&discount_type=percentage&is_active=true&page=1&limit=10",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "admin", "promotions"],
+              "query": [
+                {"key": "promotion_code", "value": "FIRSTTIME"},
+                {"key": "description", "value": "First Time Customer"},
+                {"key": "discount_type", "value": "percentage"},
+                {"key": "is_active", "value": "true"},
+                {"key": "page", "value": "1"},
+                {"key": "limit", "value": "10"}
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": "YOUR_AUTH_TOKEN_HERE",
+      "type": "string"
+    }
+  ]
+}

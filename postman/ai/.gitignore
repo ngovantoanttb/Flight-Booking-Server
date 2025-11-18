@@ -1,0 +1,33 @@
+# Test results
+results/
+*.json
+
+# Logs
+*.log
+
+# Environment files with sensitive data
+*_local.json
+*_production.json
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node modules (if any)
+node_modules/

@@ -1,0 +1,658 @@
+{
+  "info": {
+    "_postman_id": "ai-chat-collection-001",
+    "name": "AI Chat with Gemini API",
+    "description": "Collection for testing AI Chat functionality with Google Gemini AI",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    if (response.success && response.data.token) {",
+                  "        pm.environment.set('auth_token', response.data.token);",
+                  "        pm.environment.set('user_id', response.data.user.user_id);",
+                  "        pm.environment.set('user_email', response.data.user.email);",
+                  "        console.log('Token saved:', response.data.token);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"{{user_email}}\",\n    \"password\": \"{{user_password}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            },
+            "description": "Login to get authentication token"
+          },
+          "response": []
+        }
+      ],
+      "description": "Authentication endpoints"
+    },
+    {
+      "name": "AI Chat",
+      "item": [
+        {
+          "name": "Test AI Connection",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response has success field', function () {",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response).to.have.property('success');",
+                  "});",
+                  "",
+                  "pm.test('AI connection successful', function () {",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response.success).to.be.true;",
+                  "    pm.expect(response.data).to.have.property('success');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/ai/test-connection",
+              "host": ["{{base_url}}"],
+              "path": ["api", "ai", "test-connection"]
+            },
+            "description": "Test Gemini AI connection"
+          },
+          "response": []
+        },
+        {
+          "name": "Basic Chat",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response has AI response', function () {",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response).to.have.property('success');",
+                  "    pm.expect(response.data).to.have.property('ai_response');",
+                  "    pm.expect(response.data).to.have.property('model');",
+                  "    pm.expect(response.data.model).to.eql('gemini-pro');",
+                  "});",
+                  "",
+                  "pm.test('AI response is not empty', function () {",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response.data.ai_response.length).to.be.greaterThan(0);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"message\": \"Hello! Can you help me plan a trip to Japan? I'm interested in culture and food.\",\n    \"context\": {\n        \"travel_interest\": \"culture and food\",\n        \"budget\": \"medium\",\n        \"duration\": \"7 days\"\n    }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/ai/chat",
+              "host": ["{{base_url}}"],
+              "path": ["api", "ai", "chat"]
+            },
+            "description": "Basic chat with Gemini AI"
+          },
+          "response": []
+        },
+        {
+          "name": "Travel Recommendations",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response has recommendations', function () {",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response).to.have.property('success');",
+                  "    pm.expect(response.data).to.have.property('recommendations');",
+                  "    pm.expect(response.data).to.have.property('preferences');",
+                  "});",
+                  "",
+                  "pm.test('Recommendations are detailed', function () {",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response.data.recommendations.length).to.be.greaterThan(100);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"budget\": \"medium\",\n    \"duration\": \"7 days\",\n    \"interests\": [\"culture\", \"food\", \"nature\"],\n    \"season\": \"spring\",\n    \"group_size\": 2,\n    \"preferred_activities\": [\"sightseeing\", \"local experiences\", \"photography\"],\n    \"accommodation_type\": \"hotel\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/ai/travel-recommendations",
+              "host": ["{{base_url}}"],
+              "path": ["api", "ai", "travel-recommendations"]
+            },
+            "description": "Get AI travel recommendations based on preferences"
+          },
+          "response": []
+        },
+        {
+          "name": "Flight Search Assistance",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response has assistance', function () {",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response).to.have.property('success');",
+                  "    pm.expect(response.data).to.have.property('assistance');",
+                  "    pm.expect(response.data).to.have.property('search_params');",
+                  "});",
+                  "",
+                  "pm.test('Assistance is helpful', function () {",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response.data.assistance.length).to.be.greaterThan(50);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"departure_airport\": \"SGN\",\n    \"arrival_airport\": \"NRT\",\n    \"departure_date\": \"2024-12-01\",\n    \"return_date\": \"2024-12-08\",\n    \"passengers\": 2,\n    \"class\": \"economy\",\n    \"flexible_dates\": true,\n    \"preferred_airlines\": [\"Vietnam Airlines\", \"ANA\"]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/ai/flight-search-assistance",
+              "host": ["{{base_url}}"],
+              "path": ["api", "ai", "flight-search-assistance"]
+            },
+            "description": "Get AI assistance for flight search"
+          },
+          "response": []
+        },
+        {
+          "name": "Travel Advice",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response has advice', function () {",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response).to.have.property('success');",
+                  "    pm.expect(response.data).to.have.property('advice');",
+                  "    pm.expect(response.data).to.have.property('topic');",
+                  "});",
+                  "",
+                  "pm.test('Advice is comprehensive', function () {",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response.data.advice.length).to.be.greaterThan(100);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"topic\": \"What should I pack for a winter trip to Europe? Include tips for layering and essential items.\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/ai/travel-advice",
+              "host": ["{{base_url}}"],
+              "path": ["api", "ai", "travel-advice"]
+            },
+            "description": "Get AI travel advice on specific topics"
+          },
+          "response": []
+        }
+      ],
+      "description": "AI Chat endpoints with Gemini"
+    },
+    {
+      "name": "Advanced Chat Scenarios",
+      "item": [
+        {
+          "name": "Multi-turn Conversation",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response is contextual', function () {",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response).to.have.property('success');",
+                  "    pm.expect(response.data).to.have.property('ai_response');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"message\": \"I'm planning a 10-day trip to Thailand. What are the must-visit places?\",\n    \"context\": {\n        \"conversation_history\": [\n            {\n                \"user\": \"I want to travel to Southeast Asia\",\n                \"ai\": \"That's great! Southeast Asia has many amazing destinations. What type of experience are you looking for?\"\n            }\n        ],\n        \"travel_style\": \"adventure and culture\",\n        \"budget\": \"moderate\"\n    }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/ai/chat",
+              "host": ["{{base_url}}"],
+              "path": ["api", "ai", "chat"]
+            },
+            "description": "Multi-turn conversation with context"
+          },
+          "response": []
+        },
+        {
+          "name": "Business Travel Planning",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response addresses business needs', function () {",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response).to.have.property('success');",
+                  "    pm.expect(response.data).to.have.property('ai_response');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"message\": \"I need to plan a business trip to Singapore for 3 days. I'll have meetings in the CBD area and need recommendations for business hotels, restaurants for client dinners, and efficient transportation.\",\n    \"context\": {\n        \"trip_type\": \"business\",\n        \"meeting_locations\": [\"CBD\", \"Marina Bay\"],\n        \"client_entertainment\": true,\n        \"efficiency_priority\": true\n    }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/ai/chat",
+              "host": ["{{base_url}}"],
+              "path": ["api", "ai", "chat"]
+            },
+            "description": "Business travel planning assistance"
+          },
+          "response": []
+        },
+        {
+          "name": "Family Travel with Kids",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response considers family needs', function () {",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response).to.have.property('success');",
+                  "    pm.expect(response.data).to.have.property('ai_response');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"message\": \"We're a family of 4 with two kids (ages 8 and 12) planning a trip to Tokyo. What are the best family-friendly attractions and activities?\",\n    \"context\": {\n        \"family_composition\": {\n            \"adults\": 2,\n            \"children\": 2,\n            \"ages\": [8, 12]\n        },\n        \"interests\": [\"theme parks\", \"museums\", \"nature\", \"food\"],\n        \"accessibility_needs\": false,\n        \"budget\": \"moderate\"\n    }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/ai/chat",
+              "host": ["{{base_url}}"],
+              "path": ["api", "ai", "chat"]
+            },
+            "description": "Family travel planning with children"
+          },
+          "response": []
+        }
+      ],
+      "description": "Advanced chat scenarios for different travel types"
+    },
+    {
+      "name": "Error Handling",
+      "item": [
+        {
+          "name": "Invalid Message (Empty)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 400', function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test('Error message is clear', function () {",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response).to.have.property('success');",
+                  "    pm.expect(response.success).to.be.false;",
+                  "    pm.expect(response).to.have.property('message');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"message\": \"\",\n    \"context\": {}\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/ai/chat",
+              "host": ["{{base_url}}"],
+              "path": ["api", "ai", "chat"]
+            },
+            "description": "Test error handling for empty message"
+          },
+          "response": []
+        },
+        {
+          "name": "Invalid Message (Too Long)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 400', function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test('Error message indicates length issue', function () {",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response).to.have.property('success');",
+                  "    pm.expect(response.success).to.be.false;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"message\": \"This is a very long message that exceeds the maximum allowed length of 1000 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incididunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrud exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\",\n    \"context\": {}\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/ai/chat",
+              "host": ["{{base_url}}"],
+              "path": ["api", "ai", "chat"]
+            },
+            "description": "Test error handling for message too long"
+          },
+          "response": []
+        },
+        {
+          "name": "Unauthorized Request",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 401', function () {",
+                  "    pm.response.to.have.status(401);",
+                  "});",
+                  "",
+                  "pm.test('Error message indicates unauthorized', function () {",
+                  "    const response = pm.response.json();",
+                  "    pm.expect(response).to.have.property('success');",
+                  "    pm.expect(response.success).to.be.false;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer invalid_token"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"message\": \"Hello, can you help me?\",\n    \"context\": {}\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/ai/chat",
+              "host": ["{{base_url}}"],
+              "path": ["api", "ai", "chat"]
+            },
+            "description": "Test unauthorized access"
+          },
+          "response": []
+        }
+      ],
+      "description": "Error handling test cases"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Set default values if not already set",
+          "if (!pm.environment.get('base_url')) {",
+          "    pm.environment.set('base_url', 'http://localhost:3000');",
+          "}",
+          "",
+          "if (!pm.environment.get('user_email')) {",
+          "    pm.environment.set('user_email', 'contactworks.dev@gmail.com');",
+          "}",
+          "",
+          "if (!pm.environment.get('user_password')) {",
+          "    pm.environment.set('user_password', 'contactworks.dev@gmail.com');",
+          "}"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Global test for response time",
+          "pm.test('Response time is less than 10000ms', function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(10000);",
+          "});",
+          "",
+          "// Global test for response format",
+          "pm.test('Response has required fields', function () {",
+          "    const response = pm.response.json();",
+          "    pm.expect(response).to.have.property('success');",
+          "    pm.expect(response).to.have.property('message');",
+          "    pm.expect(response).to.have.property('timestamp');",
+          "});"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ]
+}

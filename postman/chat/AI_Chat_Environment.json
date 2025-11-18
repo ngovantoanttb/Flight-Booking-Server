@@ -1,0 +1,43 @@
+{
+  "id": "ai-chat-environment-001",
+  "name": "AI Chat Environment",
+  "values": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "user_email",
+      "value": "contactworks.dev@gmail.com",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "user_password",
+      "value": "contactworks.dev@gmail.com",
+      "type": "secret",
+      "enabled": true
+    },
+    {
+      "key": "auth_token",
+      "value": "",
+      "type": "secret",
+      "enabled": true
+    },
+    {
+      "key": "user_id",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "gemini_api_key",
+      "value": "AIzaSyAi0Mi5xdB02coXXRd6rsKjhzS9AqZVLD0",
+      "type": "secret",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment"
+}

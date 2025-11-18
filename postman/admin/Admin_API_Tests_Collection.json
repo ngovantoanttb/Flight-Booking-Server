@@ -1,0 +1,490 @@
+{
+	"info": {
+		"name": "Flight Booking Admin API - Test Suite",
+		"description": "Automated test suite for Admin API with test scenarios and data validation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"version": "1.0.0"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{admin_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "{{base_url}}"
+		}
+	],
+	"item": [
+		{
+			"name": "Setup - Login Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Login successful', function () {",
+							"    pm.response.to.have.status(200);",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.success).to.be.true;",
+							"    pm.expect(jsonData.data).to.have.property('token');",
+							"    ",
+							"    // Save token for subsequent requests",
+							"    pm.environment.set('admin_token', jsonData.data.token);",
+							"});",
+							"",
+							"pm.test('User has admin role', function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.user.roles).to.include('admin');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{"key": "Content-Type", "value": "application/json"}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"{{admin_email}}\",\n  \"password\": \"{{admin_password}}\"\n}"
+				},
+				"url": {
+					"raw": "{{auth_url}}/login",
+					"host": ["{{auth_url}}"],
+					"path": ["login"]
+				}
+			}
+		},
+		{
+			"name": "Test Complete CRUD - Airlines",
+			"item": [
+				{
+					"name": "1. Create Test Airline",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Airline created successfully', function () {",
+									"    pm.response.to.have.status(201);",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.be.true;",
+									"    pm.expect(jsonData.data).to.have.property('airline_id');",
+									"    ",
+									"    // Save airline ID for subsequent tests",
+									"    pm.environment.set('test_airline_id', jsonData.data.airline_id);",
+									"});",
+									"",
+									"pm.test('Airline data is correct', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.airline_code).to.equal('TEST');",
+									"    pm.expect(jsonData.data.airline_name).to.equal('Test Airlines');",
+									"    pm.expect(jsonData.data.is_active).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"airline_code\": \"TEST\",\n  \"airline_name\": \"Test Airlines\",\n  \"logo_url\": \"https://example.com/logo.png\",\n  \"is_active\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/airlines",
+							"host": ["{{base_url}}"],
+							"path": ["airlines"]
+						}
+					}
+				},
+				{
+					"name": "2. Get Created Airline",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Get airline successful', function () {",
+									"    pm.response.to.have.status(200);",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.be.true;",
+									"    pm.expect(jsonData.data.airline_id).to.equal(parseInt(pm.environment.get('test_airline_id')));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/airlines/{{test_airline_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["airlines", "{{test_airline_id}}"]
+						}
+					}
+				},
+				{
+					"name": "3. Update Airline",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Airline updated successfully', function () {",
+									"    pm.response.to.have.status(200);",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.be.true;",
+									"    pm.expect(jsonData.data.airline_name).to.equal('Updated Test Airlines');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"airline_name\": \"Updated Test Airlines\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/airlines/{{test_airline_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["airlines", "{{test_airline_id}}"]
+						}
+					}
+				},
+				{
+					"name": "4. Delete Airline",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Airline deleted successfully', function () {",
+									"    pm.response.to.have.status(200);",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/airlines/{{test_airline_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["airlines", "{{test_airline_id}}"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Test Validation Errors",
+			"item": [
+				{
+					"name": "Create Airline - Missing Required Fields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Validation error returned', function () {",
+									"    pm.response.to.have.status(400);",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.be.false;",
+									"    pm.expect(jsonData.meta).to.have.property('errors');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"airline_name\": \"Test Airlines\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/airlines",
+							"host": ["{{base_url}}"],
+							"path": ["airlines"]
+						}
+					}
+				},
+				{
+					"name": "Create Airline - Invalid Airline Code",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Validation error for invalid airline code', function () {",
+									"    pm.response.to.have.status(400);",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.be.false;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"airline_code\": \"TOOLONG\",\n  \"airline_name\": \"Test Airlines\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/airlines",
+							"host": ["{{base_url}}"],
+							"path": ["airlines"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Test Pagination and Search",
+			"item": [
+				{
+					"name": "Get Airlines with Pagination",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Pagination works correctly', function () {",
+									"    pm.response.to.have.status(200);",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.be.true;",
+									"    pm.expect(jsonData.meta).to.have.property('pagination');",
+									"    pm.expect(jsonData.meta.pagination.currentPage).to.equal(1);",
+									"    pm.expect(jsonData.meta.pagination.itemsPerPage).to.equal(5);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/airlines?page=1&limit=5",
+							"host": ["{{base_url}}"],
+							"path": ["airlines"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "limit", "value": "5"}
+							]
+						}
+					}
+				},
+				{
+					"name": "Search Airlines",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Search works correctly', function () {",
+									"    pm.response.to.have.status(200);",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.be.true;",
+									"    // All returned airlines should match search term",
+									"    if (jsonData.data.length > 0) {",
+									"        jsonData.data.forEach(airline => {",
+									"            const searchTerm = 'vietnam';",
+									"            const nameMatch = airline.airline_name.toLowerCase().includes(searchTerm);",
+									"            const codeMatch = airline.airline_code.toLowerCase().includes(searchTerm);",
+									"            pm.expect(nameMatch || codeMatch).to.be.true;",
+									"        });",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/airlines?search=vietnam",
+							"host": ["{{base_url}}"],
+							"path": ["airlines"],
+							"query": [
+								{"key": "search", "value": "vietnam"}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Test Statistics Endpoints",
+			"item": [
+				{
+					"name": "Get Overview Statistics",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Overview stats returned correctly', function () {",
+									"    pm.response.to.have.status(200);",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.be.true;",
+									"    pm.expect(jsonData.data).to.have.property('total_users');",
+									"    pm.expect(jsonData.data).to.have.property('total_bookings');",
+									"    pm.expect(jsonData.data).to.have.property('total_revenue');",
+									"    pm.expect(jsonData.data).to.have.property('total_flights');",
+									"    pm.expect(jsonData.data).to.have.property('active_promotions');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/stats/overview",
+							"host": ["{{base_url}}"],
+							"path": ["stats", "overview"]
+						}
+					}
+				},
+				{
+					"name": "Get Revenue Statistics",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Revenue stats returned correctly', function () {",
+									"    pm.response.to.have.status(200);",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.be.true;",
+									"    pm.expect(jsonData.data).to.have.property('period');",
+									"    pm.expect(jsonData.data).to.have.property('current_revenue');",
+									"    pm.expect(jsonData.data).to.have.property('previous_revenue');",
+									"    pm.expect(jsonData.data).to.have.property('growth_rate');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/stats/revenue?period=month",
+							"host": ["{{base_url}}"],
+							"path": ["stats", "revenue"],
+							"query": [
+								{"key": "period", "value": "month"}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Test Authorization",
+			"item": [
+				{
+					"name": "Access Admin Endpoint Without Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Unauthorized access blocked', function () {",
+									"    pm.response.to.have.status(401);",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.be.false;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/airlines",
+							"host": ["{{base_url}}"],
+							"path": ["airlines"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Global pre-request script",
+					"console.log('Running request: ' + pm.info.requestName);"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Global test script",
+					"pm.test('Response time is acceptable', function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+					"});",
+					"",
+					"pm.test('Response is JSON', function () {",
+					"    pm.response.to.be.json;",
+					"});"
+				]
+			}
+		}
+	]
+}

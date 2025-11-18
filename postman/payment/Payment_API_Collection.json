@@ -1,0 +1,549 @@
+{
+	"info": {
+		"_postman_id": "payment-api-collection-v2",
+		"name": "Flight Booking - Payment API Collection v2",
+		"description": "Updated collection for testing Payment APIs including ZaloPay integration with success flow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login Test User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"test@flightbooking.com\",\n  \"password\": \"test123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "login"]
+						},
+						"description": "Login to get JWT token for testing payment APIs"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bookings",
+			"item": [
+				{
+					"name": "Get User Bookings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/bookings?page=1&limit=10",
+							"host": ["{{base_url}}"],
+							"path": ["api", "bookings"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Get user's bookings to see available bookings for payment"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Booking Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/bookings/{{booking_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "bookings", "{{booking_id}}"]
+						},
+						"description": "Get detailed information about a specific booking"
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Booking",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"reason\": \"Cancelled by user for testing\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/bookings/{{booking_id}}/cancel",
+							"host": ["{{base_url}}"],
+							"path": ["api", "bookings", "{{booking_id}}", "cancel"]
+						},
+						"description": "Cancel a pending booking"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment History",
+			"item": [
+				{
+					"name": "Get Payment History",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/payments/history?page=1&limit=10",
+							"host": ["{{base_url}}"],
+							"path": ["api", "payments", "history"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Get user's payment history"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ZaloPay Payment",
+			"item": [
+				{
+					"name": "Create ZaloPay Payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"booking_id\": {{booking_id}}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/payments/zalopay/create",
+							"host": ["{{base_url}}"],
+							"path": ["api", "payments", "zalopay", "create"]
+						},
+						"description": "Create a ZaloPay payment for a booking. Returns order_url for payment."
+					},
+					"response": []
+				},
+				{
+					"name": "Check Payment Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"app_trans_id\": \"{{app_trans_id}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/payments/zalopay/status",
+							"host": ["{{base_url}}"],
+							"path": ["api", "payments", "zalopay", "status"]
+						},
+						"description": "Check the status of a ZaloPay payment"
+					},
+					"response": []
+				},
+				{
+					"name": "ZaloPay Callback",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "app_id",
+									"value": "553"
+								},
+								{
+									"key": "app_trans_id",
+									"value": "{{app_trans_id}}"
+								},
+								{
+									"key": "app_time",
+									"value": "{{$timestamp}}"
+								},
+								{
+									"key": "amount",
+									"value": "2500000"
+								},
+								{
+									"key": "app_user",
+									"value": "3"
+								},
+								{
+									"key": "zp_trans_id",
+									"value": "{{zp_trans_id}}"
+								},
+								{
+									"key": "server_time",
+									"value": "{{$timestamp}}"
+								},
+								{
+									"key": "merchant_id",
+									"value": "553"
+								},
+								{
+									"key": "transaction_type",
+									"value": "1"
+								},
+								{
+									"key": "mac",
+									"value": "{{callback_mac}}"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/payments/zalopay/callback",
+							"host": ["{{base_url}}"],
+							"path": ["api", "payments", "zalopay", "callback"]
+						},
+						"description": "ZaloPay callback endpoint (simulated for testing)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment Success Flow",
+			"item": [
+				{
+					"name": "Payment Success Redirect",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/payment/success?appid=553&apptransid={{app_trans_id}}&pmcid=38&bankcode=zalopayapp&amount=2500000&discountamount=0&status=1&checksum=test",
+							"host": ["{{base_url}}"],
+							"path": ["payment", "success"],
+							"query": [
+								{
+									"key": "appid",
+									"value": "553"
+								},
+								{
+									"key": "apptransid",
+									"value": "{{app_trans_id}}"
+								},
+								{
+									"key": "pmcid",
+									"value": "38"
+								},
+								{
+									"key": "bankcode",
+									"value": "zalopayapp"
+								},
+								{
+									"key": "amount",
+									"value": "2500000"
+								},
+								{
+									"key": "discountamount",
+									"value": "0"
+								},
+								{
+									"key": "status",
+									"value": "1"
+								},
+								{
+									"key": "checksum",
+									"value": "test"
+								}
+							]
+						},
+						"description": "Test payment success redirect (simulates successful ZaloPay payment)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Complete Payment Flow Test",
+			"item": [
+				{
+					"name": "1. Login and Get Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"test@flightbooking.com\",\n  \"password\": \"test123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "login"]
+						},
+						"description": "Step 1: Login to get JWT token"
+					},
+					"response": []
+				},
+				{
+					"name": "2. Get User Bookings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/bookings",
+							"host": ["{{base_url}}"],
+							"path": ["api", "bookings"]
+						},
+						"description": "Step 2: Get available bookings for payment"
+					},
+					"response": []
+				},
+				{
+					"name": "3. Create ZaloPay Payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"booking_id\": {{booking_id}}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/payments/zalopay/create",
+							"host": ["{{base_url}}"],
+							"path": ["api", "payments", "zalopay", "create"]
+						},
+						"description": "Step 3: Create ZaloPay payment and get order_url"
+					},
+					"response": []
+				},
+				{
+					"name": "4. Test Payment Success",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/payment/success?appid=553&apptransid={{app_trans_id}}&pmcid=38&bankcode=zalopayapp&amount=2500000&discountamount=0&status=1&checksum=test",
+							"host": ["{{base_url}}"],
+							"path": ["payment", "success"],
+							"query": [
+								{
+									"key": "appid",
+									"value": "553"
+								},
+								{
+									"key": "apptransid",
+									"value": "{{app_trans_id}}"
+								},
+								{
+									"key": "pmcid",
+									"value": "38"
+								},
+								{
+									"key": "bankcode",
+									"value": "zalopayapp"
+								},
+								{
+									"key": "amount",
+									"value": "2500000"
+								},
+								{
+									"key": "discountamount",
+									"value": "0"
+								},
+								{
+									"key": "status",
+									"value": "1"
+								},
+								{
+									"key": "checksum",
+									"value": "test"
+								}
+							]
+						},
+						"description": "Step 4: Simulate successful payment redirect"
+					},
+					"response": []
+				},
+				{
+					"name": "5. Verify Booking Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/bookings/{{booking_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "bookings", "{{booking_id}}"]
+						},
+						"description": "Step 5: Verify booking status is updated to 'confirmed'"
+					},
+					"response": []
+				},
+				{
+					"name": "6. Check Payment History",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/payments/history",
+							"host": ["{{base_url}}"],
+							"path": ["api", "payments", "history"]
+						},
+						"description": "Step 6: Check payment history to see completed payment"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Auto-set variables for testing",
+					"if (!pm.environment.get('booking_id')) {",
+					"    pm.environment.set('booking_id', '2');",
+					"}",
+					"",
+					"if (!pm.environment.get('app_trans_id')) {",
+					"    pm.environment.set('app_trans_id', '250915_' + Date.now());",
+					"}",
+					"",
+					"if (!pm.environment.get('zp_trans_id')) {",
+					"    pm.environment.set('zp_trans_id', 'ZP' + Date.now());",
+					"}"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "jwt_token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzU3OTA5NjIyLCJleHAiOjE3NTc5OTYwMjJ9.eY7Ry0GNp0kQe1zM2BXgGpd80gLPQfwelNltHz7ePt4",
+			"type": "string"
+		},
+		{
+			"key": "booking_id",
+			"value": "2",
+			"type": "string"
+		},
+		{
+			"key": "app_trans_id",
+			"value": "250915_123456",
+			"type": "string"
+		},
+		{
+			"key": "zp_trans_id",
+			"value": "ZP123456789",
+			"type": "string"
+		}
+	]
+}

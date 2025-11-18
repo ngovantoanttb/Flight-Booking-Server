@@ -1,0 +1,884 @@
+{
+	"info": {
+		"_postman_id": "new-features-api-collection",
+		"name": "New Features API Collection",
+		"description": "Collection để test các tính năng mới đã implement theo requirement.txt",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login Admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@test.com\",\n  \"password\": \"admin123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Login với test admin user để lấy JWT token"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contact Management",
+			"item": [
+				{
+					"name": "Get All Contacts (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/admin/contacts?page=1&limit=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"contacts"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Lấy danh sách tất cả contacts (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Contact by ID (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/admin/contacts/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"contacts",
+								"1"
+							]
+						},
+						"description": "Lấy thông tin contact theo ID (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Contact (Admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"phone\": \"0987654321\",\n  \"email\": \"john.doe.updated@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/admin/contacts/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"contacts",
+								"1"
+							]
+						},
+						"description": "Cập nhật thông tin contact (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Contacts (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/admin/contacts/search?query=john&page=1&limit=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"contacts",
+								"search"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "john"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Tìm kiếm contacts theo tên hoặc email (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Contact Stats (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/admin/contacts/stats",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"contacts",
+								"stats"
+							]
+						},
+						"description": "Lấy thống kê contacts (Admin only)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Service Package Management",
+			"item": [
+				{
+					"name": "Get All Service Packages (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/admin/service-packages?page=1&limit=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"service-packages"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Lấy danh sách tất cả service packages (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Service Package by ID (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/admin/service-packages/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"service-packages",
+								"1"
+							]
+						},
+						"description": "Lấy thông tin service package theo ID (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Service Package (Admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"airline_id\": 1,\n  \"package_name\": \"Premium Economy\",\n  \"package_code\": \"PREMIUM_ECONOMY\",\n  \"class_type\": \"economy\",\n  \"package_type\": \"plus\",\n  \"price_multiplier\": 1.5,\n  \"description\": \"Premium economy with extra benefits\",\n  \"services_included\": [\"Extra legroom\", \"Premium meal\", \"Priority boarding\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/admin/service-packages",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"service-packages"
+							]
+						},
+						"description": "Tạo service package mới (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Service Package (Admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"Updated premium economy description\",\n  \"price_multiplier\": 1.6\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/admin/service-packages/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"service-packages",
+								"1"
+							]
+						},
+						"description": "Cập nhật service package (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Service Package (Admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/admin/service-packages/5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"service-packages",
+								"5"
+							]
+						},
+						"description": "Xóa service package (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Airline Service Packages (Public)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/service-packages/airline/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"service-packages",
+								"airline",
+								"1"
+							]
+						},
+						"description": "Lấy service packages của một airline (Public)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Pricing Summary (Public)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/service-packages/airline/1/pricing-summary?basePrice=1000000",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"service-packages",
+								"airline",
+								"1",
+								"pricing-summary"
+							],
+							"query": [
+								{
+									"key": "basePrice",
+									"value": "1000000"
+								}
+							]
+						},
+						"description": "Lấy pricing summary cho service packages của airline (Public)"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Default Packages (Admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/admin/service-packages/airline/1/create-defaults",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"service-packages",
+								"airline",
+								"1",
+								"create-defaults"
+							]
+						},
+						"description": "Tạo default service packages cho airline (Admin only)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Enhanced Flight Management",
+			"item": [
+				{
+					"name": "Get All Flights with Enhanced Info (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/admin/flights?page=1&limit=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"flights"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Lấy danh sách flights với thông tin nâng cao (seat counts, pricing, service packages)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Flight by ID with Enhanced Info (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/admin/flights/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"flights",
+								"1"
+							]
+						},
+						"description": "Lấy thông tin chi tiết flight với enhanced info (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Filter Flights by Status (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/admin/flights?status=scheduled&page=1&limit=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"flights"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "scheduled"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Lọc flights theo status (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Filter Flights by Airline (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/admin/flights?airline_id=1&page=1&limit=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"flights"
+							],
+							"query": [
+								{
+									"key": "airline_id",
+									"value": "1"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Lọc flights theo airline (Admin only)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Passenger Validation Testing",
+			"item": [
+				{
+					"name": "Create Booking - Valid Passengers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"flight_id\": 1,\n  \"contact_info\": {\n    \"email\": \"test@example.com\",\n    \"phone\": \"0123456789\"\n  },\n  \"passengers\": [\n    {\n      \"first_name\": \"John\",\n      \"last_name\": \"Doe\",\n      \"title\": \"Mr\",\n      \"gender\": \"male\",\n      \"date_of_birth\": \"1990-01-01\",\n      \"passenger_type\": \"adult\",\n      \"citizen_id\": \"123456789012\"\n    },\n    {\n      \"first_name\": \"Jane\",\n      \"last_name\": \"Doe\",\n      \"title\": \"Mrs\",\n      \"gender\": \"female\",\n      \"date_of_birth\": \"2015-06-15\",\n      \"passenger_type\": \"child\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/bookings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"bookings"
+							]
+						},
+						"description": "Test booking với passengers hợp lệ (1 adult + 1 child)"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Booking - Invalid: No Adults",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"flight_id\": 1,\n  \"contact_email\": \"test@example.com\",\n  \"contact_phone\": \"0123456789\",\n  \"passengers\": [\n    {\n      \"first_name\": \"Child\",\n      \"last_name\": \"One\",\n      \"date_of_birth\": \"2015-06-15\",\n      \"passenger_type\": \"child\"\n    },\n    {\n      \"first_name\": \"Child\",\n      \"last_name\": \"Two\",\n      \"date_of_birth\": \"2018-03-20\",\n      \"passenger_type\": \"child\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/bookings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"bookings"
+							]
+						},
+						"description": "Test booking với passengers không hợp lệ (không có adult) - Should fail"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Booking - Invalid: Too Many Children",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"flight_id\": 1,\n  \"contact_email\": \"test@example.com\",\n  \"contact_phone\": \"0123456789\",\n  \"passengers\": [\n    {\n      \"first_name\": \"Adult\",\n      \"last_name\": \"One\",\n      \"date_of_birth\": \"1990-01-01\",\n      \"passenger_type\": \"adult\"\n    },\n    {\n      \"first_name\": \"Child1\",\n      \"last_name\": \"Test\",\n      \"date_of_birth\": \"2015-06-15\",\n      \"passenger_type\": \"child\"\n    },\n    {\n      \"first_name\": \"Child2\",\n      \"last_name\": \"Test\",\n      \"date_of_birth\": \"2016-06-15\",\n      \"passenger_type\": \"child\"\n    },\n    {\n      \"first_name\": \"Child3\",\n      \"last_name\": \"Test\",\n      \"date_of_birth\": \"2017-06-15\",\n      \"passenger_type\": \"child\"\n    },\n    {\n      \"first_name\": \"Child4\",\n      \"last_name\": \"Test\",\n      \"date_of_birth\": \"2018-06-15\",\n      \"passenger_type\": \"child\"\n    },\n    {\n      \"first_name\": \"Child5\",\n      \"last_name\": \"Test\",\n      \"date_of_birth\": \"2019-06-15\",\n      \"passenger_type\": \"child\"\n    },\n    {\n      \"first_name\": \"Child6\",\n      \"last_name\": \"Test\",\n      \"date_of_birth\": \"2020-06-15\",\n      \"passenger_type\": \"child\"\n    },\n    {\n      \"first_name\": \"Child7\",\n      \"last_name\": \"Test\",\n      \"date_of_birth\": \"2021-06-15\",\n      \"passenger_type\": \"child\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/bookings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"bookings"
+							]
+						},
+						"description": "Test booking với quá nhiều children (1 adult + 7 children) - Should fail"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Booking - Invalid: Too Many Infants",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"flight_id\": 1,\n  \"contact_email\": \"test@example.com\",\n  \"contact_phone\": \"0123456789\",\n  \"passengers\": [\n    {\n      \"first_name\": \"Adult\",\n      \"last_name\": \"One\",\n      \"date_of_birth\": \"1990-01-01\",\n      \"passenger_type\": \"adult\"\n    },\n    {\n      \"first_name\": \"Infant\",\n      \"last_name\": \"One\",\n      \"date_of_birth\": \"2023-06-15\",\n      \"passenger_type\": \"infant\"\n    },\n    {\n      \"first_name\": \"Infant\",\n      \"last_name\": \"Two\",\n      \"date_of_birth\": \"2023-08-20\",\n      \"passenger_type\": \"infant\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/bookings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"bookings"
+							]
+						},
+						"description": "Test booking với quá nhiều infants (1 adult + 2 infants) - Should fail"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Contact Management",
+			"item": [
+				{
+					"name": "Get User Contacts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/contacts?page=1&limit=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"contacts"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Lấy danh sách contacts của user hiện tại"
+					},
+					"response": []
+				},
+				{
+					"name": "Create User Contact",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"first_name\": \"Test\",\n  \"middle_name\": \"User\",\n  \"last_name\": \"Contact\",\n  \"phone\": \"0123456789\",\n  \"email\": \"test.contact@example.com\",\n  \"citizen_id\": \"987654321098\",\n  \"is_primary\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/contacts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"contacts"
+							]
+						},
+						"description": "Tạo contact mới cho user hiện tại"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Contact",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"phone\": \"0987654321\",\n  \"email\": \"updated.contact@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/contacts/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"contacts",
+								"1"
+							]
+						},
+						"description": "Cập nhật contact của user hiện tại"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User Contact",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/contacts/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"contacts",
+								"1"
+							]
+						},
+						"description": "Xóa contact của user hiện tại"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "admin_token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

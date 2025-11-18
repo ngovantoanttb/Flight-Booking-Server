@@ -1,0 +1,648 @@
+{
+	"info": {
+		"name": "Flight Booking Admin API",
+		"description": "Complete collection for testing Flight Booking Admin API endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"version": "1.0.0"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{admin_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000/api/admin"
+		},
+		{
+			"key": "admin_token",
+			"value": "your_admin_jwt_token_here"
+		}
+	],
+	"item": [
+		{
+			"name": "1. Airlines Management",
+			"item": [
+				{
+					"name": "Get All Airlines",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/airlines?page=1&limit=10&search=&is_active=true",
+							"host": ["{{base_url}}"],
+							"path": ["airlines"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "limit", "value": "10"},
+								{"key": "search", "value": ""},
+								{"key": "is_active", "value": "true"}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Airline by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/airlines/1",
+							"host": ["{{base_url}}"],
+							"path": ["airlines", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Airline",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"airline_code\": \"VN\",\n  \"airline_name\": \"Vietnam Airlines\",\n  \"logo_url\": \"https://example.com/logo.png\",\n  \"is_active\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/airlines",
+							"host": ["{{base_url}}"],
+							"path": ["airlines"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Airline",
+					"request": {
+						"method": "PUT",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"airline_name\": \"Vietnam Airlines Corporation\",\n  \"is_active\": false\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/airlines/1",
+							"host": ["{{base_url}}"],
+							"path": ["airlines", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Airline",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/airlines/1",
+							"host": ["{{base_url}}"],
+							"path": ["airlines", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2. Countries Management",
+			"item": [
+				{
+					"name": "Get All Countries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/countries?page=1&limit=10&search=",
+							"host": ["{{base_url}}"],
+							"path": ["countries"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "limit", "value": "10"},
+								{"key": "search", "value": ""}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Country",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"country_code\": \"VN\",\n  \"country_name\": \"Vietnam\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/countries",
+							"host": ["{{base_url}}"],
+							"path": ["countries"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3. Airports Management",
+			"item": [
+				{
+					"name": "Get All Airports",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/airports?page=1&limit=10&search=&country_id=",
+							"host": ["{{base_url}}"],
+							"path": ["airports"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "limit", "value": "10"},
+								{"key": "search", "value": ""},
+								{"key": "country_id", "value": ""}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Airport",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"airport_code\": \"SGN\",\n  \"airport_name\": \"Tan Son Nhat International Airport\",\n  \"city\": \"Ho Chi Minh City\",\n  \"country_id\": 1,\n  \"latitude\": 10.8188,\n  \"longitude\": 106.6520\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/airports",
+							"host": ["{{base_url}}"],
+							"path": ["airports"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4. Aircraft Management",
+			"item": [
+				{
+					"name": "Get All Aircraft",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/aircraft?page=1&limit=10&search=&airline_id=",
+							"host": ["{{base_url}}"],
+							"path": ["aircraft"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "limit", "value": "10"},
+								{"key": "search", "value": ""},
+								{"key": "airline_id", "value": ""}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Aircraft",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"airline_id\": 1,\n  \"model\": \"Boeing 737-800\",\n  \"total_seats\": 180,\n  \"business_seats\": 20,\n  \"economy_seats\": 160\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/aircraft",
+							"host": ["{{base_url}}"],
+							"path": ["aircraft"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "5. Passengers Management",
+			"item": [
+				{
+					"name": "Get All Passengers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/passengers?page=1&limit=10&search=",
+							"host": ["{{base_url}}"],
+							"path": ["passengers"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "limit", "value": "10"},
+								{"key": "search", "value": ""}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Passenger",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"first_name\": \"John\",\n  \"last_name\": \"Doe\",\n  \"date_of_birth\": \"1990-01-01\",\n  \"nationality\": \"Vietnamese\",\n  \"passport_number\": \"A1234567\",\n  \"passport_expiry\": \"2030-01-01\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/passengers",
+							"host": ["{{base_url}}"],
+							"path": ["passengers"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "6. Promotions Management",
+			"item": [
+				{
+					"name": "Get All Promotions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/promotions?page=1&limit=10&search=&is_active=true",
+							"host": ["{{base_url}}"],
+							"path": ["promotions"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "limit", "value": "10"},
+								{"key": "search", "value": ""},
+								{"key": "is_active", "value": "true"}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Promotion",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"promotion_code\": \"SUMMER2024\",\n  \"description\": \"Summer promotion 2024\",\n  \"discount_type\": \"percentage\",\n  \"discount_value\": 20.00,\n  \"min_purchase\": 1000000.00,\n  \"start_date\": \"2024-06-01\",\n  \"end_date\": \"2024-08-31\",\n  \"usage_limit\": 1000,\n  \"is_active\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/promotions",
+							"host": ["{{base_url}}"],
+							"path": ["promotions"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "7. Bookings Management",
+			"item": [
+				{
+					"name": "Get All Bookings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/bookings?page=1&limit=10&search=&status=&payment_status=&date_from=&date_to=",
+							"host": ["{{base_url}}"],
+							"path": ["bookings"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "limit", "value": "10"},
+								{"key": "search", "value": ""},
+								{"key": "status", "value": ""},
+								{"key": "payment_status", "value": ""},
+								{"key": "date_from", "value": ""},
+								{"key": "date_to", "value": ""}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Booking Status",
+					"request": {
+						"method": "PUT",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"cancelled\",\n  \"payment_status\": \"refunded\",\n  \"cancellation_reason\": \"Customer request\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/bookings/1/status",
+							"host": ["{{base_url}}"],
+							"path": ["bookings", "1", "status"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "8. Users Management",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users?page=1&limit=10&search=&is_active=true",
+							"host": ["{{base_url}}"],
+							"path": ["users"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "limit", "value": "10"},
+								{"key": "search", "value": ""},
+								{"key": "is_active", "value": "true"}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Status",
+					"request": {
+						"method": "PUT",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"is_active\": false\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users/1/status",
+							"host": ["{{base_url}}"],
+							"path": ["users", "1", "status"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "9. Travel Classes Management",
+			"item": [
+				{
+					"name": "Get All Travel Classes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/travel-classes?page=1&limit=10&search=",
+							"host": ["{{base_url}}"],
+							"path": ["travel-classes"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "limit", "value": "10"},
+								{"key": "search", "value": ""}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Travel Class",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"class_name\": \"Premium Economy\",\n  \"class_code\": \"PE\",\n  \"description\": \"Premium Economy class with extra legroom\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/travel-classes",
+							"host": ["{{base_url}}"],
+							"path": ["travel-classes"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "10. Baggage Options Management",
+			"item": [
+				{
+					"name": "Get All Baggage Options",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/baggage-options?page=1&limit=10&search=&airline_id=",
+							"host": ["{{base_url}}"],
+							"path": ["baggage-options"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "limit", "value": "10"},
+								{"key": "search", "value": ""},
+								{"key": "airline_id", "value": ""}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Baggage Option",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"airline_id\": 1,\n  \"weight_kg\": 20.00,\n  \"price\": 500000.00,\n  \"description\": \"20kg checked baggage\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/baggage-options",
+							"host": ["{{base_url}}"],
+							"path": ["baggage-options"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "11. Meal Options Management",
+			"item": [
+				{
+					"name": "Get All Meal Options",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/meal-options?page=1&limit=10&search=&airline_id=&is_vegetarian=&is_halal=",
+							"host": ["{{base_url}}"],
+							"path": ["meal-options"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "limit", "value": "10"},
+								{"key": "search", "value": ""},
+								{"key": "airline_id", "value": ""},
+								{"key": "is_vegetarian", "value": ""},
+								{"key": "is_halal", "value": ""}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Meal Option",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"airline_id\": 1,\n  \"meal_name\": \"Chicken Rice\",\n  \"meal_description\": \"Grilled chicken with steamed rice\",\n  \"price\": 150000.00,\n  \"is_vegetarian\": false,\n  \"is_halal\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/meal-options",
+							"host": ["{{base_url}}"],
+							"path": ["meal-options"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "12. Statistics & Reports",
+			"item": [
+				{
+					"name": "Get Overview Statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/stats/overview",
+							"host": ["{{base_url}}"],
+							"path": ["stats", "overview"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Revenue Statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/stats/revenue?period=month",
+							"host": ["{{base_url}}"],
+							"path": ["stats", "revenue"],
+							"query": [{"key": "period", "value": "month"}]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Booking Statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/stats/bookings?period=month",
+							"host": ["{{base_url}}"],
+							"path": ["stats", "bookings"],
+							"query": [{"key": "period", "value": "month"}]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Airline Statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/stats/airlines",
+							"host": ["{{base_url}}"],
+							"path": ["stats", "airlines"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Passenger Statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/stats/passengers?period=month",
+							"host": ["{{base_url}}"],
+							"path": ["stats", "passengers"],
+							"query": [{"key": "period", "value": "month"}]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Baggage Statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/stats/baggage",
+							"host": ["{{base_url}}"],
+							"path": ["stats", "baggage"]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Pre-request script to set up common variables",
+					"if (!pm.environment.get('admin_token')) {",
+					"    console.log('Warning: admin_token not set in environment');",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Common test script for all requests",
+					"pm.test('Status code is successful', function () {",
+					"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202, 204]);",
+					"});",
+					"",
+					"pm.test('Response has success field', function () {",
+					"    const jsonData = pm.response.json();",
+					"    pm.expect(jsonData).to.have.property('success');",
+					"});",
+					"",
+					"pm.test('Response has timestamp', function () {",
+					"    const jsonData = pm.response.json();",
+					"    pm.expect(jsonData).to.have.property('timestamp');",
+					"});"
+				]
+			}
+		}
+	]
+}

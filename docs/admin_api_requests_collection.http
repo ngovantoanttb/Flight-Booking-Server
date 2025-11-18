@@ -1,0 +1,192 @@
+### Admin API - Collection of Full Parameter Requests
+### Base URL
+@baseUrl = http://localhost:3000
+@token = YOUR_AUTH_TOKEN_HERE
+
+### ============================================
+### 1. SÂN BAY (AIRPORTS)
+### ============================================
+
+### Get Airports - Full Parameters
+GET {{baseUrl}}/api/admin/airports?airport_code=SGN&airport_name=Tan%20Son%20Nhat&city=Ho%20Chi%20Minh&airport_type=international&country_id=1&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Airports - Search by Code
+GET {{baseUrl}}/api/admin/airports?airport_code=SGN&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Airports - Search by City
+GET {{baseUrl}}/api/admin/airports?city=Ho%20Chi%20Minh&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Airports - International Only
+GET {{baseUrl}}/api/admin/airports?airport_type=international&country_id=1&page=1&limit=20
+Authorization: Bearer {{token}}
+
+### Get Airports - General Search
+GET {{baseUrl}}/api/admin/airports?search=SGN&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### ============================================
+### 2. HÃNG HÀNG KHÔNG (AIRLINES)
+### ============================================
+
+### Get Airlines - Full Parameters
+GET {{baseUrl}}/api/admin/airlines?airline_code=VN&airline_name=Vietnam%20Airlines&country_id=1&is_active=true&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Airlines - By Code
+GET {{baseUrl}}/api/admin/airlines?airline_code=VN&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Airlines - Active Only
+GET {{baseUrl}}/api/admin/airlines?is_active=true&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Airlines - By Country
+GET {{baseUrl}}/api/admin/airlines?country_id=1&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Airlines - General Search
+GET {{baseUrl}}/api/admin/airlines?search=Vietnam&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### ============================================
+### 3. CHUYẾN BAY (FLIGHTS)
+### ============================================
+
+### Get Flights - Full Parameters
+GET {{baseUrl}}/api/admin/flights?flight_number=VN494&airline_id=1&flight_type=domestic&status=scheduled&departure_airport_id=1&arrival_airport_id=2&departure_time_from=2025-01-01T00:00:00Z&departure_time_to=2025-12-31T23:59:59Z&arrival_time_from=2025-01-01T00:00:00Z&arrival_time_to=2025-12-31T23:59:59Z&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Flights - Domestic Scheduled
+GET {{baseUrl}}/api/admin/flights?flight_type=domestic&status=scheduled&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Flights - International
+GET {{baseUrl}}/api/admin/flights?flight_type=international&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Flights - By Date Range
+GET {{baseUrl}}/api/admin/flights?departure_time_from=2025-11-01T00:00:00Z&departure_time_to=2025-11-30T23:59:59Z&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Flights - By Airline
+GET {{baseUrl}}/api/admin/flights?airline_id=1&status=scheduled&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Flights - By Route
+GET {{baseUrl}}/api/admin/flights?departure_airport_id=1&arrival_airport_id=2&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### ============================================
+### 4. HÀNH KHÁCH (PASSENGERS)
+### ============================================
+
+### Get Passengers - Full Parameters
+GET {{baseUrl}}/api/admin/passengers?passenger_id=1&first_name=Nguyen&last_name=Van&title=Mr&passport_number=P12345678&date_of_birth=1990-01-01&nationality=Vietnam&passenger_type=adult&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Passengers - By Name and Type
+GET {{baseUrl}}/api/admin/passengers?first_name=Nguyen&passenger_type=adult&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Passengers - Adults Only
+GET {{baseUrl}}/api/admin/passengers?passenger_type=adult&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Passengers - Children Only
+GET {{baseUrl}}/api/admin/passengers?passenger_type=child&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Passengers - Infants Only
+GET {{baseUrl}}/api/admin/passengers?passenger_type=infant&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Passengers - By Passport/CCCD
+GET {{baseUrl}}/api/admin/passengers?passport_number=P12345678&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Passengers - By Name
+GET {{baseUrl}}/api/admin/passengers?first_name=Nguyen&last_name=Van&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Passengers - By Nationality
+GET {{baseUrl}}/api/admin/passengers?nationality=Vietnam&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Passengers - General Search
+GET {{baseUrl}}/api/admin/passengers?search=Nguyen&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### ============================================
+### 5. MÁY BAY (AIRCRAFT)
+### ============================================
+
+### Get Aircraft - Full Parameters
+GET {{baseUrl}}/api/admin/aircraft?aircraft_id=1&model=Airbus%20A321&airline_id=1&aircraft_type=Airbus&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Aircraft - By Airline
+GET {{baseUrl}}/api/admin/aircraft?airline_id=1&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Aircraft - By Model
+GET {{baseUrl}}/api/admin/aircraft?model=Airbus&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Aircraft - By Type
+GET {{baseUrl}}/api/admin/aircraft?aircraft_type=Boeing&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Aircraft - General Search
+GET {{baseUrl}}/api/admin/aircraft?search=A321&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### ============================================
+### 6. NGƯỜI LIÊN HỆ (CONTACTS)
+### ============================================
+
+### Get Contacts - Full Parameters
+GET {{baseUrl}}/api/admin/contacts?contact_id=1&first_name=Nguyen&last_name=Van&phone=%2B84901234567&email=example%40email.com&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Contacts - By Email
+GET {{baseUrl}}/api/admin/contacts?email=example%40email.com&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Contacts - By Phone
+GET {{baseUrl}}/api/admin/contacts?phone=%2B84901234567&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Contacts - By Name
+GET {{baseUrl}}/api/admin/contacts?first_name=Nguyen&last_name=Van&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### ============================================
+### 7. KHUYẾN MÃI (PROMOTIONS)
+### ============================================
+
+### Get Promotions - Full Parameters
+GET {{baseUrl}}/api/admin/promotions?promotion_code=FIRSTTIME&description=First%20Time%20Customer&discount_type=percentage&is_active=true&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Promotions - Active Only
+GET {{baseUrl}}/api/admin/promotions?is_active=true&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Promotions - By Code
+GET {{baseUrl}}/api/admin/promotions?promotion_code=FIRSTTIME&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Promotions - By Discount Type
+GET {{baseUrl}}/api/admin/promotions?discount_type=percentage&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Promotions - Fixed Amount Only
+GET {{baseUrl}}/api/admin/promotions?discount_type=fixed_amount&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Get Promotions - General Search
+GET {{baseUrl}}/api/admin/promotions?search=First&page=1&limit=10
+Authorization: Bearer {{token}}
