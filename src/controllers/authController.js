@@ -211,12 +211,12 @@ exports.googleCallback = async (req, res) => {
 
 		// Force absolute URL redirect to avoid path resolution issues with Express
 		// This ensures we don't get 'undefined' in the path
-		const absoluteUrl = `http://localhost:3000/auth/callback?accessToken=${accessToken}&refreshToken=${refreshToken}`;
+		const absoluteUrl = `${config.BASE_URL}/auth/callback?accessToken=${accessToken}&refreshToken=${refreshToken}`;
 		console.log('Redirecting to absolute URL:', absoluteUrl);
 		return res.redirect(absoluteUrl);
 	} catch (error) {
 		logger.error('Google OAuth error:', error);
-		return res.redirect(`${config.FRONTEND_URL}/auth/error`);
+		return res.redirect(`${config.BASE_URL}/auth/error`);
 	}
 };
 

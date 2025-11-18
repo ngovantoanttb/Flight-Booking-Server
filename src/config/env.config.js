@@ -37,6 +37,6 @@ module.exports = {
 	EMAIL_PASS: process.env.EMAIL_PASS,
 	EMAIL_FROM: process.env.EMAIL_FROM,
 
-	// Base URL
+	// Base URL (Frontend URL)
 	BASE_URL: process.env.BASE_URL || 'http://localhost:5000',
 };
