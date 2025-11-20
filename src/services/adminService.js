@@ -115,6 +115,15 @@ class AdminService {
 			const options = {
 				where: whereClause,
 				order: [['airline_name', 'ASC']],
+				include: [
+					{
+						model: Country,
+						attributes: ['country_id', 'country_name', 'country_code'],
+					},
+				],
+				attributes: {
+					include: [[sequelize.col('Country.country_name'), 'country_name']],
+				},
 			};
 
 			return await this.airlineService.findAll(options, page, limit);
