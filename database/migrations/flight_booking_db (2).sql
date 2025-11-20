@@ -70,97 +70,44 @@ CREATE TABLE IF NOT EXISTS `airlines` (
 -- Dumping data for table `airlines`
 --
 
-INSERT INTO airlines (airline_id, airline_code, airline_name, country_id, is_active)
+-- ===========================
+-- Bảng airlines (tham chiếu country_id)
+-- ===========================
+INSERT INTO `airlines` 
+(`airline_id`, `airline_code`, `airline_name`, `country_id`, `service_config`, `logo_url`, `is_active`) 
 VALUES
-(1, 'VN', 'Hãng hàng không Quốc gia Việt Nam (Vietnam Airlines)', 241, 1),
-(2, 'VJ', 'Hãng hàng không VietJet Air', 241, 1),
-(3, 'QH', 'Hãng hàng không Bamboo Airways', 241, 1),
-(4, 'VU', 'Hãng hàng không Vietravel Airlines', 241, 1),
+(1, 'VN', 'Vietnam Airlines', 1, NULL, 'https://logo.vn', 1),
+(2, 'VJ', 'VietJet Air', 1, NULL, 'https://example.com/vj-logo.png', 1),
+(3, 'QH', 'Bamboo Airways', 1, NULL, 'https://example.com/qh-logo.png', 1),
+(4, 'TG', 'Thai Airways', 2, NULL, 'https://example.com/tg-logo.png', 1),
+(5, 'SQ', 'Singapore Airlines', 3, NULL, 'https://example.com/sq-logo.png', 1),
+(6, 'MH', 'Malaysia Airlines', 4, NULL, 'https://example.com/mh-logo.png', 1),
+(7, 'GA', 'Garuda Indonesia', 5, NULL, 'https://example.com/ga-logo.png', 1),
+(8, 'JL', 'Japan Airlines', 6, NULL, 'https://example.com/jl-logo.png', 1),
+(9, 'KE', 'Korean Air', 7, NULL, 'https://example.com/ke-logo.png', 1),
+(10, 'CA', 'Air China', 8, NULL, 'https://example.com/ca-logo.png', 1),
+(11, 'AA', 'American Airlines', 9, NULL, 'https://example.com/aa-logo.png', 1),
+(12, 'BA', 'British Airways', 10, NULL, 'https://example.com/ba-logo.png', 1),
+(13, 'QF', 'Qantas', 11, NULL, 'https://example.com/qf-logo.png', 1),
+(14, 'AF', 'Air France', 12, NULL, 'https://example.com/af-logo.png', 1),
+(15, 'LH', 'Lufthansa', 13, NULL, 'https://example.com/lh-logo.png', 1),
+(16, 'AZ', 'Alitalia', 14, NULL, 'https://example.com/az-logo.png', 1),
+(17, 'IB', 'Iberia', 15, NULL, 'https://example.com/ib-logo.png', 1),
+(18, 'AC', 'Air Canada', 16, NULL, 'https://example.com/ac-logo.png', 1),
+(19, 'LATAM', 'LATAM Airlines', 17, NULL, 'https://example.com/latam-logo.png', 1),
+(20, 'SU', 'Aeroflot', 18, NULL, 'https://example.com/su-logo.png', 1),
+(21, 'AI', 'Air India', 19, NULL, 'https://example.com/ai-logo.png', 1),
+(22, 'EK', 'Emirates', 20, NULL, 'https://example.com/ek-logo.png', 1),
+(23, 'SV', 'Saudia', 21, NULL, 'https://example.com/sv-logo.png', 1),
+(24, 'MS', 'EgyptAir', 22, NULL, 'https://example.com/ms-logo.png', 1),
+(25, 'TK', 'Turkish Airlines', 23, NULL, 'https://example.com/tk-logo.png', 1),
+(26, 'KL', 'KLM', 24, NULL, 'https://example.com/kl-logo.png', 1),
+(27, 'LX', 'Swiss International Air Lines', 25, NULL, 'https://example.com/lx-logo.png', 1),
+(28, 'SK', 'SAS', 26, NULL, 'https://example.com/sk-logo.png', 1),
+(29, 'DY', 'Norwegian Air Shuttle', 27, NULL, 'https://example.com/dy-logo.png', 1),
+(30, 'AY', 'Finnair', 29, NULL, 'https://example.com/ay-logo.png', 1),
+(31, 'NZ', 'Air New Zealand', 30, NULL, 'https://example.com/nz-logo.png', 1);
 
-(5, 'AA', 'American Airlines', 235, 1),
-(6, 'DL', 'Delta Air Lines', 235, 1),
-(7, 'UA', 'United Airlines', 235, 1),
-(8, 'AS', 'Alaska Airlines', 235, 1),
-(9, 'B6', 'JetBlue Airways', 235, 1),
-(10, 'F9', 'Frontier Airlines', 235, 1),
-(11, 'WN', 'Southwest Airlines', 235, 1),
-
-(12, 'QR', 'Qatar Airways', 185, 1),
-(13, 'EK', 'Emirates', 230, 1),
-(14, 'EY', 'Etihad Airways', 230, 1),
-
-(15, 'SQ', 'Singapore Airlines', 200, 1),
-(16, 'TR', 'Scoot Airlines', 200, 1),
-
-(17, 'MH', 'Malaysia Airlines', 150, 1),
-(18, 'AK', 'AirAsia', 150, 1),
-
-(19, 'TG', 'Thai Airways', 218, 1),
-(20, 'FD', 'Thai AirAsia', 218, 1),
-
-(21, 'JL', 'Japan Airlines', 109, 1),
-(22, 'NH', 'All Nippon Airways (ANA)', 109, 1),
-
-(23, 'KE', 'Korean Air', 117, 1),
-(24, 'OZ', 'Asiana Airlines', 117, 1),
-(25, '7C', 'Jeju Air', 117, 1),
-
-(26, 'CA', 'Air China', 45, 1),
-(27, 'MU', 'China Eastern Airlines', 45, 1),
-(28, 'CZ', 'China Southern Airlines', 45, 1),
-(29, 'HU', 'Hainan Airlines', 45, 1),
-
-(30, 'CX', 'Cathay Pacific', 96, 1),
-
-(31, 'QF', 'Qantas Airways', 14, 1),
-(32, 'VA', 'Virgin Australia', 14, 1),
-
-(33, 'BA', 'British Airways', 79, 1),
-(34, 'VS', 'Virgin Atlantic', 79, 1),
-(35, 'U2', 'EasyJet', 79, 1),
-(36, 'FR', 'Ryanair', 105, 1),
-
-(37, 'LH', 'Lufthansa', 78, 1),
-(38, 'EW', 'Eurowings', 78, 1),
-
-(39, 'AF', 'Air France', 77, 1),
-(40, 'TO', 'Transavia France', 77, 1),
-
-(41, 'KL', 'KLM Royal Dutch Airlines', 157, 1),
-
-(42, 'AY', 'Finnair', 73, 1),
-
-(43, 'AZ', 'ITA Airways (Ý)', 114, 1),
-
-(44, 'LX', 'Swiss International Air Lines', 215, 1),
-
-(45, 'TK', 'Turkish Airlines', 225, 1),
-
-(46, 'SU', 'Aeroflot', 183, 1),
-
-(47, 'LA', 'LATAM Airlines', 42, 1),
-(48, 'AM', 'Aeromexico', 154, 1),
-(49, 'AC', 'Air Canada', 38, 1),
-
-(50, 'NZ', 'Air New Zealand', 165, 1),
-
-(51, 'SA', 'South African Airways', 207, 1),
-
-(52, 'ET', 'Ethiopian Airlines', 71, 1),
-
-(53, 'AI', 'Air India', 101, 1),
-(54, '6E', 'IndiGo', 101, 1),
-
-(55, 'PK', 'Pakistan International Airlines (PIA)', 170, 1),
-
-(56, 'GA', 'Garuda Indonesia', 102, 1),
-(57, 'JT', 'Lion Air', 102, 1),
-
-(58, 'PR', 'Philippine Airlines', 174, 1),
-(59, '5J', 'Cebu Pacific', 174, 1),
-
-(60, 'BR', 'EVA Air', 216, 1),
-(61, 'CI', 'China Airlines (Đài Loan)', 216, 1);
 
 -- --------------------------------------------------------
 
@@ -188,6 +135,40 @@ CREATE TABLE IF NOT EXISTS `airports` (
 -- Dumping data for table `airports`
 --
 
+-- ===========================
+-- Bảng airports (Việt Nam + Quốc tế)
+-- ===========================
+INSERT INTO `airports` 
+(`airport_id`, `airport_code`, `airport_name`, `city`, `country_id`, `airport_type`, `latitude`, `longitude`) 
+VALUES
+-- Sân bay Việt Nam
+(1, 'SGN', 'Sân bay Quốc tế Tân Sơn Nhất', 'TP. Hồ Chí Minh', 1, 'quốc tế', 10.8188, 106.6520),
+(2, 'HAN', 'Sân bay Quốc tế Nội Bài', 'Hà Nội', 1, 'quốc tế', 21.2212, 105.8072),
+(3, 'DAD', 'Sân bay Quốc tế Đà Nẵng', 'Đà Nẵng', 1, 'quốc tế', 16.0556, 108.1997),
+(4, 'CXR', 'Sân bay Quốc tế Cam Ranh', 'Khánh Hòa', 1, 'quốc tế', 12.2140, 109.1967),
+(5, 'VCA', 'Sân bay Cần Thơ', 'Cần Thơ', 1, 'quốc tế', 10.0391, 105.6675),
+(6, 'PQC', 'Sân bay Phú Quốc', 'Kiên Giang', 1, 'quốc tế', 10.2271, 103.9630),
+(7, 'UIH', 'Sân bay Tuy Hòa', 'Phú Yên', 1, 'nội địa', 13.0869, 109.3338),
+(8, 'VVV', 'Sân bay Chu Lai', 'Quảng Nam', 1, 'nội địa', 15.5566, 108.4603),
+(9, 'DLI', 'Sân bay Liên Khương', 'Lâm Đồng', 1, 'nội địa', 11.7510, 108.4286),
+(10, 'HUI', 'Sân bay Phú Bài', 'Thừa Thiên Huế', 1, 'nội địa', 16.4017, 107.7010),
+
+-- Sân bay quốc tế
+(11, 'BKK', 'Sân bay Suvarnabhumi', 'Bangkok', 2, 'quốc tế', 13.6900, 100.7501),
+(12, 'CNX', 'Sân bay Chiang Mai', 'Chiang Mai', 2, 'quốc tế', 18.7668, 98.9631),
+(13, 'SIN', 'Sân bay Changi', 'Singapore', 3, 'quốc tế', 1.3644, 103.9915),
+(14, 'KUL', 'Sân bay Kuala Lumpur', 'Kuala Lumpur', 4, 'quốc tế', 2.7456, 101.7099),
+(15, 'NRT', 'Sân bay Narita', 'Tokyo', 6, 'quốc tế', 35.7720, 140.3928),
+(16, 'KIX', 'Sân bay Kansai', 'Osaka', 6, 'quốc tế', 34.4342, 135.2441),
+(17, 'ICN', 'Sân bay Incheon', 'Seoul', 7, 'quốc tế', 37.4602, 126.4407),
+(18, 'PEK', 'Sân bay Bắc Kinh', 'Beijing', 8, 'quốc tế', 40.0801, 116.5846),
+(19, 'JFK', 'Sân bay John F. Kennedy', 'New York', 9, 'quốc tế', 40.6413, -73.7781),
+(20, 'LHR', 'Sân bay Heathrow', 'London', 10, 'quốc tế', 51.4700, -0.4543),
+(21, 'SYD', 'Sân bay Kingsford Smith', 'Sydney', 11, 'quốc tế', -33.9399, 151.1753),
+(22, 'CDG', 'Sân bay Charles de Gaulle', 'Paris', 12, 'quốc tế', 49.0097, 2.5479),
+(23, 'FRA', 'Sân bay Frankfurt', 'Frankfurt', 13, 'quốc tế', 50.0379, 8.5622),
+(24, 'FCO', 'Sân bay Fiumicino', 'Rome', 14, 'quốc tế', 41.8003, 12.2389),
+(25, 'MAD', 'Sân bay Barajas', 'Madrid', 15, 'quốc tế', 40.4983, -3.5676);
 
 
 -- --------------------------------------------------------
@@ -363,256 +344,37 @@ CREATE TABLE IF NOT EXISTS `countries` (
 --
 -- Dumping data for table `countries`
 --
-INSERT INTO countries (country_id, country_code, country_name) VALUES
-(1, 'AF', 'Afghanistan'),
-(2, 'AX', 'Aland Islands'),
-(3, 'AL', 'Albania'),
-(4, 'DZ', 'Algeria'),
-(5, 'AS', 'American Samoa'),
-(6, 'AD', 'Andorra'),
-(7, 'AO', 'Angola'),
-(8, 'AI', 'Anguilla'),
-(9, 'AQ', 'Antarctica'),
-(10, 'AG', 'Antigua and Barbuda'),
-(11, 'AR', 'Argentina'),
-(12, 'AM', 'Armenia'),
-(13, 'AW', 'Aruba'),
-(14, 'AU', 'Australia'),
-(15, 'AT', 'Austria'),
-(16, 'AZ', 'Azerbaijan'),
-(17, 'BS', 'Bahamas'),
-(18, 'BH', 'Bahrain'),
-(19, 'BD', 'Bangladesh'),
-(20, 'BB', 'Barbados'),
-(21, 'BY', 'Belarus'),
-(22, 'BE', 'Belgium'),
-(23, 'BZ', 'Belize'),
-(24, 'BJ', 'Benin'),
-(25, 'BM', 'Bermuda'),
-(26, 'BT', 'Bhutan'),
-(27, 'BO', 'Bolivia'),
-(28, 'BQ', 'Bonaire, Sint Eustatius and Saba'),
-(29, 'BA', 'Bosnia and Herzegovina'),
-(30, 'BW', 'Botswana'),
-(31, 'BV', 'Bouvet Island'),
-(32, 'BR', 'Brazil'),
-(33, 'IO', 'British Indian Ocean Territory'),
-(34, 'BN', 'Brunei Darussalam'),
-(35, 'BG', 'Bulgaria'),
-(36, 'BF', 'Burkina Faso'),
-(37, 'BI', 'Burundi'),
-(38, 'CV', 'Cabo Verde'),
-(39, 'KH', 'Cambodia'),
-(40, 'CM', 'Cameroon'),
-(41, 'CA', 'Canada'),
-(42, 'KY', 'Cayman Islands'),
-(43, 'CF', 'Central African Republic'),
-(44, 'TD', 'Chad'),
-(45, 'CL', 'Chile'),
-(46, 'CN', 'China'),
-(47, 'CX', 'Christmas Island'),
-(48, 'CC', 'Cocos (Keeling) Islands'),
-(49, 'CO', 'Colombia'),
-(50, 'KM', 'Comoros'),
-(51, 'CG', 'Congo'),
-(52, 'CD', 'Congo, Democratic Republic of the'),
-(53, 'CK', 'Cook Islands'),
-(54, 'CR', 'Costa Rica'),
-(55, 'CI', 'Côte d''Ivoire'),
-(56, 'HR', 'Croatia'),
-(57, 'CU', 'Cuba'),
-(58, 'CW', 'Curaçao'),
-(59, 'CY', 'Cyprus'),
-(60, 'CZ', 'Czech Republic'),
-(61, 'DK', 'Denmark'),
-(62, 'DJ', 'Djibouti'),
-(63, 'DM', 'Dominica'),
-(64, 'DO', 'Dominican Republic'),
-(65, 'EC', 'Ecuador'),
-(66, 'EG', 'Egypt'),
-(67, 'SV', 'El Salvador'),
-(68, 'GQ', 'Equatorial Guinea'),
-(69, 'ER', 'Eritrea'),
-(70, 'EE', 'Estonia'),
-(71, 'SZ', 'Eswatini'),
-(72, 'ET', 'Ethiopia'),
-(73, 'FK', 'Falkland Islands'),
-(74, 'FO', 'Faroe Islands'),
-(75, 'FJ', 'Fiji'),
-(76, 'FI', 'Finland'),
-(77, 'FR', 'France'),
-(78, 'GF', 'French Guiana'),
-(79, 'PF', 'French Polynesia'),
-(80, 'TF', 'French Southern Territories'),
-(81, 'GA', 'Gabon'),
-(82, 'GM', 'Gambia'),
-(83, 'GE', 'Georgia'),
-(84, 'DE', 'Germany'),
-(85, 'GH', 'Ghana'),
-(86, 'GI', 'Gibraltar'),
-(87, 'GR', 'Greece'),
-(88, 'GL', 'Greenland'),
-(89, 'GD', 'Grenada'),
-(90, 'GP', 'Guadeloupe'),
-(91, 'GU', 'Guam'),
-(92, 'GT', 'Guatemala'),
-(93, 'GG', 'Guernsey'),
-(94, 'GN', 'Guinea'),
-(95, 'GW', 'Guinea-Bissau'),
-(96, 'GY', 'Guyana'),
-(97, 'HT', 'Haiti'),
-(98, 'HM', 'Heard Island and McDonald Islands'),
-(99, 'VA', 'Holy See'),
-(100, 'HN', 'Honduras'),
-(101, 'HK', 'Hong Kong'),
-(102, 'HU', 'Hungary'),
-(103, 'IS', 'Iceland'),
-(104, 'IN', 'India'),
-(105, 'ID', 'Indonesia'),
-(106, 'IR', 'Iran'),
-(107, 'IQ', 'Iraq'),
-(108, 'IE', 'Ireland'),
-(109, 'IM', 'Isle of Man'),
-(110, 'IL', 'Israel'),
-(111, 'IT', 'Italy'),
-(112, 'JM', 'Jamaica'),
-(113, 'JP', 'Japan'),
-(114, 'JE', 'Jersey'),
-(115, 'JO', 'Jordan'),
-(116, 'KZ', 'Kazakhstan'),
-(117, 'KE', 'Kenya'),
-(118, 'KI', 'Kiribati'),
-(119, 'KP', 'Korea, Democratic People''s Republic of'),
-(120, 'KR', 'Korea, Republic of'),
-(121, 'KW', 'Kuwait'),
-(122, 'KG', 'Kyrgyzstan'),
-(123, 'LA', 'Lao People''s Democratic Republic'),
-(124, 'LV', 'Latvia'),
-(125, 'LB', 'Lebanon'),
-(126, 'LS', 'Lesotho'),
-(127, 'LR', 'Liberia'),
-(128, 'LY', 'Libya'),
-(129, 'LI', 'Liechtenstein'),
-(130, 'LT', 'Lithuania'),
-(131, 'LU', 'Luxembourg'),
-(132, 'MO', 'Macao'),
-(133, 'MG', 'Madagascar'),
-(134, 'MW', 'Malawi'),
-(135, 'MY', 'Malaysia'),
-(136, 'MV', 'Maldives'),
-(137, 'ML', 'Mali'),
-(138, 'MT', 'Malta'),
-(139, 'MH', 'Marshall Islands'),
-(140, 'MQ', 'Martinique'),
-(141, 'MR', 'Mauritania'),
-(142, 'MU', 'Mauritius'),
-(143, 'YT', 'Mayotte'),
-(144, 'MX', 'Mexico'),
-(145, 'FM', 'Micronesia'),
-(146, 'MD', 'Moldova'),
-(147, 'MC', 'Monaco'),
-(148, 'MN', 'Mongolia'),
-(149, 'ME', 'Montenegro'),
-(150, 'MS', 'Montserrat'),
-(151, 'MA', 'Morocco'),
-(152, 'MZ', 'Mozambique'),
-(153, 'MM', 'Myanmar'),
-(154, 'NA', 'Namibia'),
-(155, 'NR', 'Nauru'),
-(156, 'NP', 'Nepal'),
-(157, 'NL', 'Netherlands'),
-(158, 'NC', 'New Caledonia'),
-(159, 'NZ', 'New Zealand'),
-(160, 'NI', 'Nicaragua'),
-(161, 'NE', 'Niger'),
-(162, 'NG', 'Nigeria'),
-(163, 'NU', 'Niue'),
-(164, 'NF', 'Norfolk Island'),
-(165, 'MK', 'North Macedonia'),
-(166, 'MP', 'Northern Mariana Islands'),
-(167, 'NO', 'Norway'),
-(168, 'OM', 'Oman'),
-(169, 'PK', 'Pakistan'),
-(170, 'PW', 'Palau'),
-(171, 'PS', 'Palestine, State of'),
-(172, 'PA', 'Panama'),
-(173, 'PG', 'Papua New Guinea'),
-(174, 'PY', 'Paraguay'),
-(175, 'PE', 'Peru'),
-(176, 'PH', 'Philippines'),
-(177, 'PN', 'Pitcairn'),
-(178, 'PL', 'Poland'),
-(179, 'PT', 'Portugal'),
-(180, 'PR', 'Puerto Rico'),
-(181, 'QA', 'Qatar'),
-(182, 'RE', 'Réunion'),
-(183, 'RO', 'Romania'),
-(184, 'RU', 'Russian Federation'),
-(185, 'RW', 'Rwanda'),
-(186, 'BL', 'Saint Barthélemy'),
-(187, 'SH', 'Saint Helena'),
-(188, 'KN', 'Saint Kitts and Nevis'),
-(189, 'LC', 'Saint Lucia'),
-(190, 'MF', 'Saint Martin'),
-(191, 'PM', 'Saint Pierre and Miquelon'),
-(192, 'VC', 'Saint Vincent and the Grenadines'),
-(193, 'WS', 'Samoa'),
-(194, 'SM', 'San Marino'),
-(195, 'ST', 'Sao Tome and Principe'),
-(196, 'SA', 'Saudi Arabia'),
-(197, 'SN', 'Senegal'),
-(198, 'RS', 'Serbia'),
-(199, 'SC', 'Seychelles'),
-(200, 'SL', 'Sierra Leone'),
-(201, 'SG', 'Singapore'),
-(202, 'SX', 'Sint Maarten'),
-(203, 'SK', 'Slovakia'),
-(204, 'SI', 'Slovenia'),
-(205, 'SB', 'Solomon Islands'),
-(206, 'SO', 'Somalia'),
-(207, 'ZA', 'South Africa'),
-(208, 'GS', 'South Georgia and the South Sandwich Islands'),
-(209, 'SS', 'South Sudan'),
-(210, 'ES', 'Spain'),
-(211, 'LK', 'Sri Lanka'),
-(212, 'SD', 'Sudan'),
-(213, 'SR', 'Suriname'),
-(214, 'SJ', 'Svalbard and Jan Mayen'),
-(215, 'SE', 'Sweden'),
-(216, 'CH', 'Switzerland'),
-(217, 'SY', 'Syrian Arab Republic'),
-(218, 'TW', 'Taiwan'),
-(219, 'TJ', 'Tajikistan'),
-(220, 'TZ', 'Tanzania'),
-(221, 'TH', 'Thailand'),
-(222, 'TL', 'Timor-Leste'),
-(223, 'TG', 'Togo'),
-(224, 'TK', 'Tokelau'),
-(225, 'TO', 'Tonga'),
-(226, 'TT', 'Trinidad and Tobago'),
-(227, 'TN', 'Tunisia'),
-(228, 'TR', 'Türkiye'),
-(229, 'TM', 'Turkmenistan'),
-(230, 'TC', 'Turks and Caicos Islands'),
-(231, 'TV', 'Tuvalu'),
-(232, 'UG', 'Uganda'),
-(233, 'UA', 'Ukraine'),
-(234, 'AE', 'United Arab Emirates'),
-(235, 'GB', 'United Kingdom'),
-(236, 'US', 'United States of America'),
-(237, 'UM', 'United States Minor Outlying Islands'),
-(238, 'UY', 'Uruguay'),
-(239, 'UZ', 'Uzbekistan'),
-(240, 'VU', 'Vanuatu'),
-(241, 'VE', 'Venezuela'),
-(242, 'VN', 'Vietnam'),
-(243, 'VG', 'Virgin Islands, British'),
-(244, 'VI', 'Virgin Islands, U.S.'),
-(245, 'WF', 'Wallis and Futuna'),
-(246, 'EH', 'Western Sahara'),
-(247, 'YE', 'Yemen'),
-(248, 'ZM', 'Zambia'),
-(249, 'ZW', 'Zimbabwe')
+INSERT INTO `countries` (`country_id`, `country_code`, `country_name`) VALUES
+(1, 'VN', 'Vietnam'),
+(2, 'TH', 'Thailand'),
+(3, 'SG', 'Singapore'),
+(4, 'MY', 'Malaysia'),
+(5, 'ID', 'Indonesia'),
+(6, 'JP', 'Japan'),
+(7, 'KR', 'South Korea'),
+(8, 'CN', 'China'),
+(9, 'US', 'United States'),
+(10, 'GB', 'United Kingdom'),
+(11, 'AU', 'Australia'),
+(12, 'FR', 'France'),
+(13, 'DE', 'Germany'),
+(14, 'IT', 'Italy'),
+(15, 'ES', 'Spain'),
+(16, 'CA', 'Canada'),
+(17, 'BR', 'Brazil'),
+(18, 'RU', 'Russia'),
+(19, 'IN', 'India'),
+(20, 'AE', 'United Arab Emirates'),
+(21, 'SA', 'Saudi Arabia'),
+(22, 'EG', 'Egypt'),
+(23, 'TR', 'Turkey'),
+(24, 'NL', 'Netherlands'),
+(25, 'CH', 'Switzerland'),
+(26, 'SE', 'Sweden'),
+(27, 'NO', 'Norway'),
+(28, 'DK', 'Denmark'),
+(29, 'FI', 'Finland'),
+(30, 'NZ', 'New Zealand');
 
 
 -- --------------------------------------------------------
@@ -979,7 +741,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
 
 INSERT INTO `roles` (`role_id`, `role_name`) VALUES
 (2, 'admin'),
-(1, 'user')
+(1, 'user');
 
 -- --------------------------------------------------------
 
@@ -1046,7 +808,7 @@ CREATE TABLE IF NOT EXISTS `travel_classes` (
 
 INSERT INTO `travel_classes` (`class_id`, `class_name`, `class_code`) VALUES
 (1, 'Business Class', 'BUSINESS'),
-(2, 'Economy Class', 'ECONOMY')
+(2, 'Economy Class', 'ECONOMY');
 
 -- --------------------------------------------------------
 
@@ -1080,7 +842,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `email`, `password`, `first_name`, `middle_name`, `last_name`, `title`, `citizen_id`, `phone`, `date_of_birth`, `google_id`, `is_active`, `created_at`, `updated_at`) VALUES
-(1, 'admin@flightbooking.com', '$2a$10$LF5I2ycWr8VezR.nugEOd.NybfvSFrKkXcCou8hWXZ21cCl1NOz/e', 'John', 'Middle', 'Doe', 'Mr', '123456789012', '+84901234567', '1990-01-01', NULL, 1, '2025-10-20 06:08:43', '2025-10-20 06:08:43')
+(1, 'admin@flightbooking.com', '$2a$10$LF5I2ycWr8VezR.nugEOd.NybfvSFrKkXcCou8hWXZ21cCl1NOz/e', 'John', 'Middle', 'Doe', 'Mr', '123456789012', '+84901234567', '1990-01-01', NULL, 1, '2025-10-20 06:08:43', '2025-10-20 06:08:43');
 
 
 -- --------------------------------------------------------
@@ -1103,7 +865,7 @@ CREATE TABLE IF NOT EXISTS `user_roles` (
 --
 
 INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES
-(1, 2)
+(1, 2);
 
 
 -- --------------------------------------------------------
