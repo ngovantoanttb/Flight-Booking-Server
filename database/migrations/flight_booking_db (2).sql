@@ -44,7 +44,16 @@ CREATE TABLE IF NOT EXISTS `aircraft` (
 -- Dumping data for table `aircraft`
 --
 
-
+INSERT INTO `aircraft` (`aircraft_id`, `airline_id`, `model`, `total_seats`, `business_seats`, `economy_seats`, `aircraft_type`) VALUES
+(1, 1, 'Boeing A321', 200, 20, 180, 'Boeing B21'),
+(2, 1, 'Airbus 787-9', 300, 30, 270, 'Airbus A127'),
+(3, 2, 'Boeing A320', 180, 0, 180, 'Boeing B032'),
+(4, 2, 'Boeing A321', 230, 0, 230, 'Boeing B2321'),
+(5, 3, 'Boeing 737-800', 189, 12, 177, 'Boeing B32'),
+(6, 5, 'Airbus A350-900', 280, 40, 240, 'Airbus A321'),
+(7, 7, 'Boeing 777-300ER', 244, 35, 209, 'Boeing B034'),
+(8, 1, 'Airbus A321', 200, 24, 176, 'Airbus A12'),
+(9, 1, 'A321 - Demo', 24, 4, 20, 'Airbus A321');
 
 -- --------------------------------------------------------
 
@@ -76,37 +85,37 @@ CREATE TABLE IF NOT EXISTS `airlines` (
 INSERT INTO `airlines` 
 (`airline_id`, `airline_code`, `airline_name`, `country_id`, `service_config`, `logo_url`, `is_active`) 
 VALUES
-(1, 'VN', 'Vietnam Airlines', 1, NULL, 'https://logo.vn', 1),
-(2, 'VJ', 'VietJet Air', 1, NULL, 'https://example.com/vj-logo.png', 1),
-(3, 'QH', 'Bamboo Airways', 1, NULL, 'https://example.com/qh-logo.png', 1),
-(4, 'TG', 'Thai Airways', 2, NULL, 'https://example.com/tg-logo.png', 1),
-(5, 'SQ', 'Singapore Airlines', 3, NULL, 'https://example.com/sq-logo.png', 1),
-(6, 'MH', 'Malaysia Airlines', 4, NULL, 'https://example.com/mh-logo.png', 1),
-(7, 'GA', 'Garuda Indonesia', 5, NULL, 'https://example.com/ga-logo.png', 1),
-(8, 'JL', 'Japan Airlines', 6, NULL, 'https://example.com/jl-logo.png', 1),
-(9, 'KE', 'Korean Air', 7, NULL, 'https://example.com/ke-logo.png', 1),
-(10, 'CA', 'Air China', 8, NULL, 'https://example.com/ca-logo.png', 1),
-(11, 'AA', 'American Airlines', 9, NULL, 'https://example.com/aa-logo.png', 1),
-(12, 'BA', 'British Airways', 10, NULL, 'https://example.com/ba-logo.png', 1),
-(13, 'QF', 'Qantas', 11, NULL, 'https://example.com/qf-logo.png', 1),
-(14, 'AF', 'Air France', 12, NULL, 'https://example.com/af-logo.png', 1),
-(15, 'LH', 'Lufthansa', 13, NULL, 'https://example.com/lh-logo.png', 1),
-(16, 'AZ', 'Alitalia', 14, NULL, 'https://example.com/az-logo.png', 1),
-(17, 'IB', 'Iberia', 15, NULL, 'https://example.com/ib-logo.png', 1),
-(18, 'AC', 'Air Canada', 16, NULL, 'https://example.com/ac-logo.png', 1),
-(19, 'LATAM', 'LATAM Airlines', 17, NULL, 'https://example.com/latam-logo.png', 1),
-(20, 'SU', 'Aeroflot', 18, NULL, 'https://example.com/su-logo.png', 1),
-(21, 'AI', 'Air India', 19, NULL, 'https://example.com/ai-logo.png', 1),
-(22, 'EK', 'Emirates', 20, NULL, 'https://example.com/ek-logo.png', 1),
-(23, 'SV', 'Saudia', 21, NULL, 'https://example.com/sv-logo.png', 1),
-(24, 'MS', 'EgyptAir', 22, NULL, 'https://example.com/ms-logo.png', 1),
-(25, 'TK', 'Turkish Airlines', 23, NULL, 'https://example.com/tk-logo.png', 1),
-(26, 'KL', 'KLM', 24, NULL, 'https://example.com/kl-logo.png', 1),
-(27, 'LX', 'Swiss International Air Lines', 25, NULL, 'https://example.com/lx-logo.png', 1),
-(28, 'SK', 'SAS', 26, NULL, 'https://example.com/sk-logo.png', 1),
-(29, 'DY', 'Norwegian Air Shuttle', 27, NULL, 'https://example.com/dy-logo.png', 1),
-(30, 'AY', 'Finnair', 29, NULL, 'https://example.com/ay-logo.png', 1),
-(31, 'NZ', 'Air New Zealand', 30, NULL, 'https://example.com/nz-logo.png', 1);
+(1, 'VN', 'Vietnam Airlines', 1, NULL, '', 1),
+(2, 'VJ', 'VietJet Air', 1, NULL, '', 1),
+(3, 'QH', 'Bamboo Airways', 1, NULL, '', 1),
+(4, 'TG', 'Thai Airways', 2, NULL, '', 1),
+(5, 'SQ', 'Singapore Airlines', 3, NULL, '', 1),
+(6, 'MH', 'Malaysia Airlines', 4, NULL, '', 1),
+(7, 'GA', 'Garuda Indonesia', 5, NULL, '', 1),
+(8, 'JL', 'Japan Airlines', 6, NULL, '', 1),
+(9, 'KE', 'Korean Air', 7, NULL, '', 1),
+(10, 'CA', 'Air China', 8, NULL, '', 1),
+(11, 'AA', 'American Airlines', 9, NULL, '', 1),
+(12, 'BA', 'British Airways', 10, NULL, '', 1),
+(13, 'QF', 'Qantas', 11, NULL, '', 1),
+(14, 'AF', 'Air France', 12, NULL, '', 1),
+(15, 'LH', 'Lufthansa', 13, NULL, '', 1),
+(16, 'AZ', 'Alitalia', 14, NULL, '', 1),
+(17, 'IB', 'Iberia', 15, NULL, '', 1),
+(18, 'AC', 'Air Canada', 16, NULL, '', 1),
+(19, 'LATAM', 'LATAM Airlines', 17, NULL, '', 1),
+(20, 'SU', 'Aeroflot', 18, NULL, '', 1),
+(21, 'AI', 'Air India', 19, NULL, '', 1),
+(22, 'EK', 'Emirates', 20, NULL, '', 1),
+(23, 'SV', 'Saudia', 21, NULL, '', 1),
+(24, 'MS', 'EgyptAir', 22, NULL, '', 1),
+(25, 'TK', 'Turkish Airlines', 23, NULL, '', 1),
+(26, 'KL', 'KLM', 24, NULL, '', 1),
+(27, 'LX', 'Swiss International Air Lines', 25, NULL, '', 1),
+(28, 'SK', 'SAS', 26, NULL, '', 1),
+(29, 'DY', 'Norwegian Air Shuttle', 27, NULL, '', 1),
+(30, 'AY', 'Finnair', 29, NULL, '', 1),
+(31, 'NZ', 'Air New Zealand', 30, NULL, '', 1);
 
 
 -- --------------------------------------------------------
@@ -152,7 +161,6 @@ VALUES
 (8, 'VVV', 'Sân bay Chu Lai', 'Quảng Nam', 1, 'nội địa', 15.5566, 108.4603),
 (9, 'DLI', 'Sân bay Liên Khương', 'Lâm Đồng', 1, 'nội địa', 11.7510, 108.4286),
 (10, 'HUI', 'Sân bay Phú Bài', 'Thừa Thiên Huế', 1, 'nội địa', 16.4017, 107.7010),
-
 -- Sân bay quốc tế
 (11, 'BKK', 'Sân bay Suvarnabhumi', 'Bangkok', 2, 'quốc tế', 13.6900, 100.7501),
 (12, 'CNX', 'Sân bay Chiang Mai', 'Chiang Mai', 2, 'quốc tế', 18.7668, 98.9631),

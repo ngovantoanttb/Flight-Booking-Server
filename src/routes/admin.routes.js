@@ -48,10 +48,10 @@ const airlineValidation = [
 	body('country_id')
 		.isInt({ min: 1 })
 		.withMessage('Country ID must be a positive integer'),
-	body('logo_url')
-		.optional()
-		.isURL()
-		.withMessage('Logo URL must be a valid URL'),
+	// body('logo_url')
+	// 	.optional()
+	// 	.isURL()
+	// 	.withMessage('Logo URL must be a valid URL'),
 	body('is_active')
 		.optional()
 		.isBoolean()
