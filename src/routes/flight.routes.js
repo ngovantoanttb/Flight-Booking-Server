@@ -15,7 +15,7 @@ const router = express.Router();
 const flightIdValidation = [
 	param('flightId')
 		.isInt({ min: 1 })
-		.withMessage('Flight ID must be a positive integer'),
+		.withMessage('ID chuyến bay phải là số nguyên dương'),
 ];
 
 const searchFlightsValidation = [
@@ -23,64 +23,64 @@ const searchFlightsValidation = [
 	query('departure_airport_code')
 		.optional()
 		.isLength({ min: 3, max: 3 })
-		.withMessage('Airport code must be 3 characters'),
+		.withMessage('Mã sân bay phải có 3 ký tự'),
 	query('arrival_airport_code')
 		.optional()
 		.isLength({ min: 3, max: 3 })
-		.withMessage('Airport code must be 3 characters'),
+		.withMessage('Mã sân bay phải có 3 ký tự'),
 	query('departure_date')
 		.optional()
 		.isISO8601()
-		.withMessage('Invalid date format. Use YYYY-MM-DD'),
+		.withMessage('Định dạng ngày không hợp lệ. Sử dụng YYYY-MM-DD'),
 	query('passengers')
 		.optional()
 		.isInt({ min: 1, max: 9 })
-		.withMessage('Passengers must be between 1 and 9'),
+		.withMessage('Số hành khách phải từ 1 đến 9'),
 	query('class_code')
 		.optional()
 		.isIn(['ECONOMY', 'BUSINESS'])
-		.withMessage('Class code must be ECONOMY or BUSINESS'),
+		.withMessage('Mã hạng vé phải là ECONOMY hoặc BUSINESS'),
 	query('page')
 		.optional()
 		.isInt({ min: 1 })
-		.withMessage('Page must be a positive integer'),
+		.withMessage('Trang phải là số nguyên dương'),
 	query('limit')
 		.optional()
 		.isInt({ min: 1, max: 100 })
-		.withMessage('Limit must be between 1 and 100'),
+		.withMessage('Giới hạn phải từ 1 đến 100'),
 ];
 
 const createFlightValidation = [
 	body('flight_number')
 		.optional()
 		.isLength({ min: 1, max: 10 })
-		.withMessage('Flight number must be between 1 and 10 characters'),
+		.withMessage('Số hiệu chuyến bay phải từ 1 đến 10 ký tự'),
 	body('airline_id')
 		.isInt({ min: 1 })
-		.withMessage('Airline ID must be a positive integer'),
+		.withMessage('ID hãng hàng không phải là số nguyên dương'),
 	body('aircraft_id')
 		.isInt({ min: 1 })
-		.withMessage('Aircraft ID must be a positive integer'),
+		.withMessage('ID máy bay phải là số nguyên dương'),
 	body('departure_airport_id')
 		.isInt({ min: 1 })
-		.withMessage('Departure airport ID must be a positive integer'),
+		.withMessage('ID sân bay đi phải là số nguyên dương'),
 	body('arrival_airport_id')
 		.isInt({ min: 1 })
-		.withMessage('Arrival airport ID must be a positive integer'),
+		.withMessage('ID sân bay đến phải là số nguyên dương'),
 	body('departure_time')
 		.notEmpty()
-		.withMessage('Departure time is required')
+		.withMessage('Thời gian khởi hành là bắt buộc')
 		.isISO8601()
-		.withMessage('Invalid departure time format'),
+		.withMessage('Định dạng thời gian khởi hành không hợp lệ'),
 	body('arrival_time')
 		.notEmpty()
-		.withMessage('Arrival time is required')
+		.withMessage('Thời gian đến là bắt buộc')
 		.isISO8601()
-		.withMessage('Invalid arrival time format'),
+		.withMessage('Định dạng thời gian đến không hợp lệ'),
 	body('status')
 		.optional()
 		.isIn(['scheduled', 'delayed', 'cancelled', 'completed'])
-		.withMessage('Invalid status value'),
+		.withMessage('Giá trị trạng thái không hợp lệ'),
 ];
 
 const updateFlightValidation = [
@@ -88,94 +88,94 @@ const updateFlightValidation = [
 	body('flight_number')
 		.optional()
 		.isLength({ min: 1, max: 10 })
-		.withMessage('Flight number must be between 1 and 10 characters'),
+		.withMessage('Số hiệu chuyến bay phải từ 1 đến 10 ký tự'),
 	body('airline_id')
 		.optional()
 		.isInt({ min: 1 })
-		.withMessage('Airline ID must be a positive integer'),
+		.withMessage('ID hãng hàng không phải là số nguyên dương'),
 	body('aircraft_id')
 		.optional()
 		.isInt({ min: 1 })
-		.withMessage('Aircraft ID must be a positive integer'),
+		.withMessage('ID máy bay phải là số nguyên dương'),
 	body('departure_airport_id')
 		.optional()
 		.isInt({ min: 1 })
-		.withMessage('Departure airport ID must be a positive integer'),
+		.withMessage('ID sân bay đi phải là số nguyên dương'),
 	body('arrival_airport_id')
 		.optional()
 		.isInt({ min: 1 })
-		.withMessage('Arrival airport ID must be a positive integer'),
+		.withMessage('ID sân bay đến phải là số nguyên dương'),
 	body('departure_time')
 		.optional()
 		.isISO8601()
-		.withMessage('Invalid departure time format'),
+		.withMessage('Định dạng thời gian khởi hành không hợp lệ'),
 	body('arrival_time')
 		.optional()
 		.isISO8601()
-		.withMessage('Invalid arrival time format'),
+		.withMessage('Định dạng thời gian đến không hợp lệ'),
 	body('status')
 		.optional()
 		.isIn(['scheduled', 'delayed', 'cancelled', 'completed'])
-		.withMessage('Invalid status value'),
+		.withMessage('Giá trị trạng thái không hợp lệ'),
 ];
 
 const getSeatsValidation = [
 	...flightIdValidation,
 	query('class_id')
 		.notEmpty()
-		.withMessage('Class ID is required')
+		.withMessage('ID hạng vé là bắt buộc')
 		.isInt({ min: 1 })
-		.withMessage('Class ID must be a positive integer'),
+		.withMessage('ID hạng vé phải là số nguyên dương'),
 ];
 
 const getAllFlightsValidation = [
 	query('page')
 		.optional()
 		.isInt({ min: 1 })
-		.withMessage('Page must be a positive integer'),
+		.withMessage('Trang phải là số nguyên dương'),
 	query('limit')
 		.optional()
 		.isInt({ min: 1, max: 100 })
-		.withMessage('Limit must be between 1 and 100'),
+		.withMessage('Giới hạn phải từ 1 đến 100'),
 	query('status')
 		.optional()
 		.isIn(['scheduled', 'delayed', 'cancelled', 'completed'])
-		.withMessage('Invalid status value'),
+		.withMessage('Giá trị trạng thái không hợp lệ'),
 	query('airline_id')
 		.optional()
 		.isInt({ min: 1 })
-		.withMessage('Airline ID must be a positive integer'),
+		.withMessage('ID hãng hàng không phải là số nguyên dương'),
 ];
 
 const getAllFlightsForUsersValidation = [
 	query('page')
 		.optional()
 		.isInt({ min: 1 })
-		.withMessage('Page must be a positive integer'),
+		.withMessage('Trang phải là số nguyên dương'),
 	query('limit')
 		.optional()
 		.isInt({ min: 1, max: 100 })
-		.withMessage('Limit must be between 1 and 100'),
+		.withMessage('Giới hạn phải từ 1 đến 100'),
 	query('status')
 		.optional()
 		.isIn(['scheduled', 'delayed', 'cancelled', 'completed'])
-		.withMessage('Invalid status value'),
+		.withMessage('Giá trị trạng thái không hợp lệ'),
 	query('airline_id')
 		.optional()
 		.isInt({ min: 1 })
-		.withMessage('Airline ID must be a positive integer'),
+		.withMessage('ID hãng hàng không phải là số nguyên dương'),
 	query('departure_airport_code')
 		.optional()
 		.isLength({ min: 3, max: 3 })
-		.withMessage('Airport code must be 3 characters'),
+		.withMessage('Mã sân bay phải có 3 ký tự'),
 	query('arrival_airport_code')
 		.optional()
 		.isLength({ min: 3, max: 3 })
-		.withMessage('Airport code must be 3 characters'),
+		.withMessage('Mã sân bay phải có 3 ký tự'),
 	query('departure_date')
 		.optional()
 		.isISO8601()
-		.withMessage('Invalid date format. Use YYYY-MM-DD'),
+		.withMessage('Định dạng ngày không hợp lệ. Sử dụng YYYY-MM-DD'),
 ];
 
 // Public routes

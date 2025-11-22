@@ -15,18 +15,18 @@ const router = express.Router();
 const paymentIdValidation = [
   param('paymentId')
     .isInt({ min: 1 })
-    .withMessage('Payment ID must be a positive integer')
+    .withMessage('ID thanh toán phải là số nguyên dương')
 ];
 
 const processPaymentValidation = [
   body('booking_id')
     .isInt({ min: 1 })
-    .withMessage('Booking ID must be a positive integer'),
+    .withMessage('ID đặt chỗ phải là số nguyên dương'),
   body('payment_method')
     .notEmpty()
-    .withMessage('Payment method is required')
+    .withMessage('Phương thức thanh toán là bắt buộc')
     .isIn(['zalopay', 'credit_card', 'bank_transfer', 'cod'])
-    .withMessage('Invalid payment method'),
+    .withMessage('Phương thức thanh toán không hợp lệ'),
   body('return_url')
     .optional()
     .custom((value) => {
@@ -36,7 +36,7 @@ const processPaymentValidation = [
         if (url.hostname === 'localhost' || url.hostname === '127.0.0.1') return true;
         return ['http:', 'https:'].includes(url.protocol);
       } catch (e) {
-        throw new Error('Return URL must be a valid URL');
+        throw new Error('URL trả về phải là URL hợp lệ');
       }
     })
 ];

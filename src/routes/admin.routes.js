@@ -19,74 +19,74 @@ router.use(authorize('admin'));
 
 // Validation rules
 const idValidation = [
-	param('id').isInt({ min: 1 }).withMessage('ID must be a positive integer'),
+	param('id').isInt({ min: 1 }).withMessage('ID phải là số nguyên dương'),
 ];
 
 const paginationValidation = [
 	query('page')
 		.optional()
 		.isInt({ min: 1 })
-		.withMessage('Page must be a positive integer'),
+		.withMessage('Trang phải là số nguyên dương'),
 	query('limit')
 		.optional()
 		.isInt({ min: 1, max: 100 })
-		.withMessage('Limit must be between 1 and 100'),
+		.withMessage('Giới hạn phải từ 1 đến 100'),
 ];
 
 // Airlines Management
 const airlineValidation = [
 	body('airline_code')
 		.notEmpty()
-		.withMessage('Airline code is required')
+		.withMessage('Mã hãng hàng không là bắt buộc')
 		.isLength({ min: 2, max: 2 })
-		.withMessage('Airline code must be 2 characters'),
+		.withMessage('Mã hãng hàng không phải có 2 ký tự'),
 	body('airline_name')
 		.notEmpty()
-		.withMessage('Airline name is required')
+		.withMessage('Tên hãng hàng không là bắt buộc')
 		.isLength({ min: 1, max: 100 })
-		.withMessage('Airline name must be between 1 and 100 characters'),
+		.withMessage('Tên hãng hàng không phải từ 1 đến 100 ký tự'),
 	body('country_id')
 		.isInt({ min: 1 })
-		.withMessage('Country ID must be a positive integer'),
+		.withMessage('ID quốc gia phải là số nguyên dương'),
 	// body('logo_url')
 	// 	.optional()
 	// 	.isURL()
-	// 	.withMessage('Logo URL must be a valid URL'),
+	// 	.withMessage('Logo URL phải là URL hợp lệ'),
 	body('is_active')
 		.optional()
 		.isBoolean()
-		.withMessage('is_active must be a boolean'),
+		.withMessage('Trường is_active phải là boolean'),
 ];
 
 // Update service packages for an airline (admin)
 const servicePackagesValidation = [
 	body('service_packages')
 		.isArray({ min: 1 })
-		.withMessage('service_packages must be a non-empty array'),
+		.withMessage('Gói dịch vụ phải là mảng không rỗng'),
 	body('service_packages.*.package_id')
 		.optional()
 		.isInt({ min: 1 })
-		.withMessage('package_id must be a positive integer'),
+		.withMessage('ID gói dịch vụ phải là số nguyên dương'),
 	body('service_packages.*.package_name')
 		.notEmpty()
-		.withMessage('package_name is required'),
+		.withMessage('Tên gói dịch vụ là bắt buộc'),
 	body('service_packages.*.package_code')
 		.notEmpty()
-		.withMessage('package_code is required'),
+		.withMessage('Mã gói dịch vụ là bắt buộc'),
 	body('service_packages.*.class_type')
 		.isIn(['economy', 'business'])
-		.withMessage('class_type must be economy or business'),
+		.withMessage('Loại hạng vé phải là economy hoặc business'),
 	body('service_packages.*.package_type')
 		.isIn(['standard', 'plus'])
-		.withMessage('package_type must be standard or plus'),
+		.withMessage('Loại gói phải là standard hoặc plus'),
 	body('service_packages.*.price_multiplier')
 		.optional()
 		.isDecimal()
-		.withMessage('price_multiplier must be a decimal'),
+		.withMessage('Hệ số giá phải là số thập phân'),
 	body('service_packages.*.is_active')
 		.optional()
 		.isBoolean()
-		.withMessage('is_active must be boolean'),
+		.withMessage('Trường is_active phải là boolean'),
 ];
 
 router.get(
@@ -98,7 +98,7 @@ router.get(
 router.get('/airlines/:id', idValidation, validate, adminController.getAirline);
 router.get(
 	'/airlines/:airlineId/details',
-	[param('airlineId').isInt({ min: 1 })],
+	[param('airlineId').isInt({ min: 1 }).withMessage('ID hãng hàng không phải là số nguyên dương')],
 	validate,
 	adminController.getAirlineDetails
 );
@@ -125,30 +125,30 @@ router.delete(
 const airportValidation = [
 	body('airport_code')
 		.notEmpty()
-		.withMessage('Airport code is required')
+		.withMessage('Mã sân bay là bắt buộc')
 		.isLength({ min: 3, max: 3 })
-		.withMessage('Airport code must be 3 characters'),
+		.withMessage('Mã sân bay phải có 3 ký tự'),
 	body('airport_name')
 		.notEmpty()
-		.withMessage('Airport name is required')
+		.withMessage('Tên sân bay là bắt buộc')
 		.isLength({ min: 1, max: 100 })
-		.withMessage('Airport name must be between 1 and 100 characters'),
+		.withMessage('Tên sân bay phải từ 1 đến 100 ký tự'),
 	body('city')
 		.notEmpty()
-		.withMessage('City is required')
+		.withMessage('Thành phố là bắt buộc')
 		.isLength({ min: 1, max: 100 })
-		.withMessage('City must be between 1 and 100 characters'),
+		.withMessage('Thành phố phải từ 1 đến 100 ký tự'),
 	body('country_id')
 		.isInt({ min: 1 })
-		.withMessage('Country ID must be a positive integer'),
+		.withMessage('ID quốc gia phải là số nguyên dương'),
 	body('latitude')
 		.optional()
 		.isDecimal()
-		.withMessage('Latitude must be a decimal number'),
+		.withMessage('Vĩ độ phải là số thập phân'),
 	body('longitude')
 		.optional()
 		.isDecimal()
-		.withMessage('Longitude must be a decimal number'),
+		.withMessage('Kinh độ phải là số thập phân'),
 ];
 
 router.get(
@@ -181,14 +181,14 @@ router.delete(
 const countryValidation = [
 	body('country_code')
 		.notEmpty()
-		.withMessage('Country code is required')
+		.withMessage('Mã quốc gia là bắt buộc')
 		.isLength({ min: 2, max: 2 })
-		.withMessage('Country code must be 2 characters'),
+		.withMessage('Mã quốc gia phải có 2 ký tự'),
 	body('country_name')
 		.notEmpty()
-		.withMessage('Country name is required')
+		.withMessage('Tên quốc gia là bắt buộc')
 		.isLength({ min: 1, max: 100 })
-		.withMessage('Country name must be between 1 and 100 characters'),
+		.withMessage('Tên quốc gia phải từ 1 đến 100 ký tự'),
 ];
 
 router.get(
@@ -226,25 +226,25 @@ router.delete(
 const aircraftValidation = [
 	body('airline_id')
 		.isInt({ min: 1 })
-		.withMessage('Airline ID must be a positive integer'),
+		.withMessage('ID hãng hàng không phải là số nguyên dương'),
 	body('model')
 		.notEmpty()
-		.withMessage('Model is required')
+		.withMessage('Model là bắt buộc')
 		.isLength({ min: 1, max: 100 })
-		.withMessage('Model must be between 1 and 100 characters'),
+		.withMessage('Model phải từ 1 đến 100 ký tự'),
 	body('aircraft_type')
 		.optional()
 		.isLength({ min: 1, max: 50 })
-		.withMessage('Aircraft type must be between 1 and 50 characters'),
+		.withMessage('Loại máy bay phải từ 1 đến 50 ký tự'),
 	body('total_seats')
 		.isInt({ min: 1 })
-		.withMessage('Total seats must be a positive integer'),
+		.withMessage('Tổng số ghế phải là số nguyên dương'),
 	body('business_seats')
 		.isInt({ min: 0 })
-		.withMessage('Business seats must be a non-negative integer'),
+		.withMessage('Số ghế hạng thương gia phải là số nguyên không âm'),
 	body('economy_seats')
 		.isInt({ min: 0 })
-		.withMessage('Economy seats must be a non-negative integer'),
+		.withMessage('Số ghế hạng phổ thông phải là số nguyên không âm'),
 ];
 
 router.get(
@@ -282,31 +282,31 @@ router.delete(
 const passengerValidation = [
 	body('first_name')
 		.notEmpty()
-		.withMessage('First name is required')
+		.withMessage('Họ là bắt buộc')
 		.isLength({ min: 1, max: 50 })
-		.withMessage('First name must be between 1 and 50 characters'),
+		.withMessage('Họ phải từ 1 đến 50 ký tự'),
 	body('last_name')
 		.notEmpty()
-		.withMessage('Last name is required')
+		.withMessage('Tên là bắt buộc')
 		.isLength({ min: 1, max: 50 })
-		.withMessage('Last name must be between 1 and 50 characters'),
+		.withMessage('Tên phải từ 1 đến 50 ký tự'),
 	body('date_of_birth')
 		.notEmpty()
-		.withMessage('Date of birth is required')
+		.withMessage('Ngày sinh là bắt buộc')
 		.isISO8601()
-		.withMessage('Date of birth must be a valid date'),
+		.withMessage('Ngày sinh phải là ngày hợp lệ'),
 	body('nationality')
 		.optional()
 		.isLength({ min: 1, max: 50 })
-		.withMessage('Nationality must be between 1 and 50 characters'),
+		.withMessage('Quốc tịch phải từ 1 đến 50 ký tự'),
 	body('passport_number')
 		.optional()
 		.isLength({ min: 1, max: 50 })
-		.withMessage('Passport number must be between 1 and 50 characters'),
+		.withMessage('Số hộ chiếu phải từ 1 đến 50 ký tự'),
 	body('passport_expiry')
 		.optional()
 		.isISO8601()
-		.withMessage('Passport expiry must be a valid date'),
+		.withMessage('Ngày hết hạn hộ chiếu phải là ngày hợp lệ'),
 ];
 
 router.get(
@@ -344,42 +344,42 @@ router.delete(
 const promotionValidation = [
 	body('promotion_code')
 		.notEmpty()
-		.withMessage('Promotion code is required')
+		.withMessage('Mã khuyến mãi là bắt buộc')
 		.isLength({ min: 1, max: 20 })
-		.withMessage('Promotion code must be between 1 and 20 characters'),
+		.withMessage('Mã khuyến mãi phải từ 1 đến 20 ký tự'),
 	body('description')
 		.notEmpty()
-		.withMessage('Description is required')
+		.withMessage('Mô tả là bắt buộc')
 		.isLength({ min: 1, max: 255 })
-		.withMessage('Description must be between 1 and 255 characters'),
+		.withMessage('Mô tả phải từ 1 đến 255 ký tự'),
 	body('discount_type')
 		.isIn(['percentage', 'fixed_amount'])
-		.withMessage('Discount type must be percentage or fixed_amount'),
+		.withMessage('Loại giảm giá phải là percentage hoặc fixed_amount'),
 	body('discount_value')
 		.isDecimal({ decimal_digits: '0,2' })
-		.withMessage('Discount value must be a decimal number'),
+		.withMessage('Giá trị giảm giá phải là số thập phân'),
 	body('min_purchase')
 		.optional()
 		.isDecimal({ decimal_digits: '0,2' })
-		.withMessage('Minimum purchase must be a decimal number'),
+		.withMessage('Giá trị mua tối thiểu phải là số thập phân'),
 	body('start_date')
 		.notEmpty()
-		.withMessage('Start date is required')
+		.withMessage('Ngày bắt đầu là bắt buộc')
 		.isISO8601()
-		.withMessage('Start date must be a valid date'),
+		.withMessage('Ngày bắt đầu phải là ngày hợp lệ'),
 	body('end_date')
 		.notEmpty()
-		.withMessage('End date is required')
+		.withMessage('Ngày kết thúc là bắt buộc')
 		.isISO8601()
-		.withMessage('End date must be a valid date'),
+		.withMessage('Ngày kết thúc phải là ngày hợp lệ'),
 	body('usage_limit')
 		.optional()
 		.isInt({ min: 1 })
-		.withMessage('Usage limit must be a positive integer'),
+		.withMessage('Giới hạn sử dụng phải là số nguyên dương'),
 	body('is_active')
 		.optional()
 		.isBoolean()
-		.withMessage('is_active must be a boolean'),
+		.withMessage('Trường is_active phải là boolean'),
 ];
 
 router.get(
@@ -426,23 +426,20 @@ const bookingStatusValidation = [
 			'cancellation_rejected',
 		])
 		.withMessage(
-			'Status must be one of: pending, confirmed, cancelled, completed, pending_cancellation, or cancellation_rejected'
+			'Trạng thái phải là một trong: pending, confirmed, cancelled, completed, pending_cancellation, hoặc cancellation_rejected'
 		),
 	body('payment_status')
 		.optional()
 		.isIn(['pending', 'paid', 'refunded', 'failed'])
 		.withMessage(
-			'Payment status must be pending, paid, refunded, or failed'
+			'Trạng thái thanh toán phải là pending, paid, refunded, hoặc failed'
 		),
-	body('cancellation_reason').optional().isLength({ min: 1, max: 255 }),
-	body('reject_reason').optional().isLength({ min: 1, max: 255 }),
+	body('cancellation_reason').optional().isLength({ min: 1, max: 255 }).withMessage('Lý do hủy phải từ 1 đến 255 ký tự'),
+	body('reject_reason').optional().isLength({ min: 1, max: 255 }).withMessage('Lý do từ chối phải từ 1 đến 255 ký tự'),
 	body('action')
 		.optional()
 		.isIn(['reject_cancellation'])
-		.withMessage('Action must be reject_cancellation')
-		.withMessage(
-			'Cancellation reason must be between 1 and 255 characters'
-		),
+		.withMessage('Hành động phải là reject_cancellation'),
 ];
 
 router.get(
@@ -470,23 +467,23 @@ const userValidation = [
 	body('email')
 		.optional()
 		.isEmail()
-		.withMessage('Email must be a valid email address'),
+		.withMessage('Email phải là địa chỉ email hợp lệ'),
 	body('first_name')
 		.optional()
 		.isLength({ min: 1, max: 50 })
-		.withMessage('First name must be between 1 and 50 characters'),
+		.withMessage('Họ phải từ 1 đến 50 ký tự'),
 	body('last_name')
 		.optional()
 		.isLength({ min: 1, max: 50 })
-		.withMessage('Last name must be between 1 and 50 characters'),
+		.withMessage('Tên phải từ 1 đến 50 ký tự'),
 	body('phone')
 		.optional()
 		.isLength({ min: 1, max: 20 })
-		.withMessage('Phone must be between 1 and 20 characters'),
+		.withMessage('Số điện thoại phải từ 1 đến 20 ký tự'),
 	body('is_active')
 		.optional()
 		.isBoolean()
-		.withMessage('is_active must be a boolean'),
+		.withMessage('Trường is_active phải là boolean'),
 ];
 
 router.get('/users', paginationValidation, validate, adminController.getUsers);
@@ -499,7 +496,7 @@ router.put(
 );
 router.put(
 	'/users/:id/status',
-	[...idValidation, body('is_active').isBoolean()],
+	[...idValidation, body('is_active').isBoolean().withMessage('Trường is_active phải là boolean')],
 	validate,
 	adminController.updateUserStatus
 );
@@ -508,18 +505,18 @@ router.put(
 const travelClassValidation = [
 	body('class_name')
 		.notEmpty()
-		.withMessage('Class name is required')
+		.withMessage('Tên hạng vé là bắt buộc')
 		.isLength({ min: 1, max: 50 })
-		.withMessage('Class name must be between 1 and 50 characters'),
+		.withMessage('Tên hạng vé phải từ 1 đến 50 ký tự'),
 	body('class_code')
 		.notEmpty()
-		.withMessage('Class code is required')
+		.withMessage('Mã hạng vé là bắt buộc')
 		.isLength({ min: 1, max: 20 })
-		.withMessage('Class code must be between 1 and 20 characters'),
+		.withMessage('Mã hạng vé phải từ 1 đến 20 ký tự'),
 	body('description')
 		.optional()
 		.isLength({ min: 1, max: 255 })
-		.withMessage('Description must be between 1 and 255 characters'),
+		.withMessage('Mô tả phải từ 1 đến 255 ký tự'),
 ];
 
 router.get(
@@ -557,18 +554,18 @@ router.delete(
 const baggageOptionValidation = [
 	body('airline_id')
 		.isInt({ min: 1 })
-		.withMessage('Airline ID must be a positive integer'),
+		.withMessage('ID hãng hàng không phải là số nguyên dương'),
 	body('weight_kg')
 		.isDecimal({ decimal_digits: '0,2' })
-		.withMessage('Weight must be a decimal number'),
+		.withMessage('Trọng lượng phải là số thập phân'),
 	body('price')
 		.isDecimal({ decimal_digits: '0,2' })
-		.withMessage('Price must be a decimal number'),
+		.withMessage('Giá phải là số thập phân'),
 	body('description')
 		.notEmpty()
-		.withMessage('Description is required')
+		.withMessage('Mô tả là bắt buộc')
 		.isLength({ min: 1, max: 255 })
-		.withMessage('Description must be between 1 and 255 characters'),
+		.withMessage('Mô tả phải từ 1 đến 255 ký tự'),
 ];
 
 router.get(
@@ -606,27 +603,27 @@ router.delete(
 const mealOptionValidation = [
 	body('airline_id')
 		.isInt({ min: 1 })
-		.withMessage('Airline ID must be a positive integer'),
+		.withMessage('ID hãng hàng không phải là số nguyên dương'),
 	body('meal_name')
 		.notEmpty()
-		.withMessage('Meal name is required')
+		.withMessage('Tên bữa ăn là bắt buộc')
 		.isLength({ min: 1, max: 100 })
-		.withMessage('Meal name must be between 1 and 100 characters'),
+		.withMessage('Tên bữa ăn phải từ 1 đến 100 ký tự'),
 	body('meal_description')
 		.optional()
 		.isLength({ min: 1, max: 255 })
-		.withMessage('Meal description must be between 1 and 255 characters'),
+		.withMessage('Mô tả bữa ăn phải từ 1 đến 255 ký tự'),
 	body('price')
 		.isDecimal({ decimal_digits: '0,2' })
-		.withMessage('Price must be a decimal number'),
+		.withMessage('Giá phải là số thập phân'),
 	body('is_vegetarian')
 		.optional()
 		.isBoolean()
-		.withMessage('is_vegetarian must be a boolean'),
+		.withMessage('Trường is_vegetarian phải là boolean'),
 	body('is_halal')
 		.optional()
 		.isBoolean()
-		.withMessage('is_halal must be a boolean'),
+		.withMessage('Trường is_halal phải là boolean'),
 ];
 
 router.get(
@@ -707,38 +704,38 @@ const flightValidation = [
 	body('flight_number')
 		.optional()
 		.isLength({ min: 1, max: 10 })
-		.withMessage('Flight number must be between 1 and 10 characters'),
+		.withMessage('Số hiệu chuyến bay phải từ 1 đến 10 ký tự'),
 	body('airline_id')
 		.isInt({ min: 1 })
-		.withMessage('Airline ID must be a positive integer'),
+		.withMessage('ID hãng hàng không phải là số nguyên dương'),
 	body('aircraft_id')
 		.isInt({ min: 1 })
-		.withMessage('Aircraft ID must be a positive integer'),
+		.withMessage('ID máy bay phải là số nguyên dương'),
 	body('departure_airport_id')
 		.isInt({ min: 1 })
-		.withMessage('Departure airport ID must be a positive integer'),
+		.withMessage('ID sân bay đi phải là số nguyên dương'),
 	body('arrival_airport_id')
 		.isInt({ min: 1 })
-		.withMessage('Arrival airport ID must be a positive integer'),
+		.withMessage('ID sân bay đến phải là số nguyên dương'),
 	body('departure_time')
 		.notEmpty()
-		.withMessage('Departure time is required')
+		.withMessage('Thời gian khởi hành là bắt buộc')
 		.isISO8601()
-		.withMessage('Departure time must be a valid date'),
+		.withMessage('Thời gian khởi hành phải là ngày hợp lệ'),
 	body('arrival_time')
 		.notEmpty()
-		.withMessage('Arrival time is required')
+		.withMessage('Thời gian đến là bắt buộc')
 		.isISO8601()
-		.withMessage('Arrival time must be a valid date'),
+		.withMessage('Thời gian đến phải là ngày hợp lệ'),
 	body('force_edit')
 		.optional()
 		.isBoolean()
-		.withMessage('force_edit must be a boolean'),
+		.withMessage('Trường force_edit phải là boolean'),
 	body('status')
 		.optional()
 		.isIn(['scheduled', 'delayed', 'cancelled', 'completed'])
 		.withMessage(
-			'Status must be scheduled, delayed, cancelled, or completed'
+			'Trạng thái phải là scheduled, delayed, cancelled, hoặc completed'
 		),
 ];
 

@@ -15,7 +15,7 @@ const router = express.Router();
 const flightIdValidation = [
   param('flightId')
     .isInt({ min: 1 })
-    .withMessage('Flight ID must be a positive integer')
+    .withMessage('ID chuyến bay phải là số nguyên dương')
 ];
 
 // Public routes for service information
@@ -45,14 +45,14 @@ router.use(protect);
 
 router.post(
   '/bookings/:bookingId/baggage',
-  param('bookingId').isInt({ min: 1 }),
+  param('bookingId').isInt({ min: 1 }).withMessage('ID đặt chỗ phải là số nguyên dương'),
   validate,
   serviceController.addBaggageToBooking
 );
 
 router.post(
   '/bookings/:bookingId/meals',
-  param('bookingId').isInt({ min: 1 }),
+  param('bookingId').isInt({ min: 1 }).withMessage('ID đặt chỗ phải là số nguyên dương'),
   validate,
   serviceController.addMealsToBooking
 );

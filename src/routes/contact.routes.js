@@ -18,42 +18,42 @@ router.use(protect);
 const contactIdValidation = [
 	param('id')
 		.isInt({ min: 1 })
-		.withMessage('Contact ID must be a positive integer'),
+		.withMessage('ID liên hệ phải là số nguyên dương'),
 ];
 
 const createContactValidation = [
 	body('first_name')
 		.notEmpty()
-		.withMessage('First name is required')
+		.withMessage('Họ là bắt buộc')
 		.isLength({ min: 1, max: 50 })
-		.withMessage('First name must be between 1 and 50 characters'),
+		.withMessage('Họ phải từ 1 đến 50 ký tự'),
 	body('last_name')
 		.notEmpty()
-		.withMessage('Last name is required')
+		.withMessage('Tên là bắt buộc')
 		.isLength({ min: 1, max: 50 })
-		.withMessage('Last name must be between 1 and 50 characters'),
+		.withMessage('Tên phải từ 1 đến 50 ký tự'),
 	body('phone')
 		.notEmpty()
-		.withMessage('Phone is required')
+		.withMessage('Số điện thoại là bắt buộc')
 		.isLength({ min: 10, max: 20 })
-		.withMessage('Phone must be between 10 and 20 characters'),
+		.withMessage('Số điện thoại phải từ 10 đến 20 ký tự'),
 	body('email')
 		.notEmpty()
-		.withMessage('Email is required')
+		.withMessage('Email là bắt buộc')
 		.isEmail()
-		.withMessage('Email must be a valid email address'),
+		.withMessage('Email phải là địa chỉ email hợp lệ'),
 	body('middle_name')
 		.optional()
 		.isLength({ min: 1, max: 50 })
-		.withMessage('Middle name must be between 1 and 50 characters'),
+		.withMessage('Tên đệm phải từ 1 đến 50 ký tự'),
 	body('citizen_id')
 		.optional()
 		.isLength({ min: 12, max: 12 })
-		.withMessage('Citizen ID must be exactly 12 digits'),
+		.withMessage('Số CCCD/CMND phải có đúng 12 chữ số'),
 	body('is_primary')
 		.optional()
 		.isBoolean()
-		.withMessage('Is primary must be a boolean'),
+		.withMessage('Trường is_primary phải là boolean'),
 ];
 
 const updateContactValidation = [
@@ -61,50 +61,50 @@ const updateContactValidation = [
 	body('first_name')
 		.optional()
 		.isLength({ min: 1, max: 50 })
-		.withMessage('First name must be between 1 and 50 characters'),
+		.withMessage('Họ phải từ 1 đến 50 ký tự'),
 	body('middle_name')
 		.optional()
 		.isLength({ min: 1, max: 50 })
-		.withMessage('Middle name must be between 1 and 50 characters'),
+		.withMessage('Tên đệm phải từ 1 đến 50 ký tự'),
 	body('last_name')
 		.optional()
 		.isLength({ min: 1, max: 50 })
-		.withMessage('Last name must be between 1 and 50 characters'),
+		.withMessage('Tên phải từ 1 đến 50 ký tự'),
 	body('phone')
 		.optional()
 		.isLength({ min: 10, max: 20 })
-		.withMessage('Phone must be between 10 and 20 characters'),
+		.withMessage('Số điện thoại phải từ 10 đến 20 ký tự'),
 	body('email')
 		.optional()
 		.isEmail()
-		.withMessage('Email must be a valid email address'),
+		.withMessage('Email phải là địa chỉ email hợp lệ'),
 	body('citizen_id')
 		.optional()
 		.isLength({ min: 12, max: 12 })
-		.withMessage('Citizen ID must be exactly 12 digits'),
+		.withMessage('Số CCCD/CMND phải có đúng 12 chữ số'),
 	body('is_primary')
 		.optional()
 		.isBoolean()
-		.withMessage('Is primary must be a boolean'),
+		.withMessage('Trường is_primary phải là boolean'),
 ];
 
 const paginationValidation = [
 	query('page')
 		.optional()
 		.isInt({ min: 1 })
-		.withMessage('Page must be a positive integer'),
+		.withMessage('Trang phải là số nguyên dương'),
 	query('limit')
 		.optional()
 		.isInt({ min: 1, max: 100 })
-		.withMessage('Limit must be between 1 and 100'),
+		.withMessage('Giới hạn phải từ 1 đến 100'),
 ];
 
 const searchValidation = [
 	query('query')
 		.notEmpty()
-		.withMessage('Search query is required')
+		.withMessage('Truy vấn tìm kiếm là bắt buộc')
 		.isLength({ min: 2, max: 100 })
-		.withMessage('Search query must be between 2 and 100 characters'),
+		.withMessage('Truy vấn tìm kiếm phải từ 2 đến 100 ký tự'),
 ];
 
 // Contact routes

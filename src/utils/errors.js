@@ -22,55 +22,55 @@ class ValidationError extends AppError {
 }
 
 class NotFoundError extends AppError {
-	constructor(message = 'Resource not found') {
+	constructor(message = 'Không tìm thấy tài nguyên') {
 		super(message, 404);
 	}
 }
 
 class UnauthorizedError extends AppError {
-	constructor(message = 'Unauthorized access') {
+	constructor(message = 'Không có quyền truy cập') {
 		super(message, 401);
 	}
 }
 
 class ForbiddenError extends AppError {
-	constructor(message = 'Forbidden access') {
+	constructor(message = 'Truy cập bị cấm') {
 		super(message, 403);
 	}
 }
 
 class ConflictError extends AppError {
-	constructor(message = 'Resource conflict') {
+	constructor(message = 'Xung đột tài nguyên') {
 		super(message, 409);
 	}
 }
 
 class BadRequestError extends AppError {
-	constructor(message = 'Bad request') {
+	constructor(message = 'Yêu cầu không hợp lệ') {
 		super(message, 400);
 	}
 }
 
 class DatabaseError extends AppError {
-	constructor(message = 'Database operation failed') {
+	constructor(message = 'Thao tác cơ sở dữ liệu thất bại') {
 		super(message, 500);
 	}
 }
 
 class ExternalServiceError extends AppError {
-	constructor(message = 'External service error') {
+	constructor(message = 'Lỗi dịch vụ bên ngoài') {
 		super(message, 502);
 	}
 }
 
 class PaymentError extends AppError {
-	constructor(message = 'Payment processing failed') {
+	constructor(message = 'Xử lý thanh toán thất bại') {
 		super(message, 400);
 	}
 }
 
 class ServiceUnavailableError extends AppError {
-	constructor(message = 'Service temporarily unavailable') {
+	constructor(message = 'Dịch vụ tạm thời không khả dụng') {
 		super(message, 503);
 	}
 }
@@ -81,26 +81,26 @@ const handleValidationError = (error) => {
 		field: err.path,
 		message: err.message,
 	}));
-	return new ValidationError('Validation failed', errors);
+	return new ValidationError('Xác thực thất bại', errors);
 };
 
 const handleDuplicateKeyError = (error) => {
 	const field = Object.keys(error.keyValue)[0];
-	const message = `${field} already exists`;
+	const message = `${field} đã tồn tại`;
 	return new ConflictError(message);
 };
 
 const handleCastError = (error) => {
-	const message = `Invalid ${error.path}: ${error.value}`;
+	const message = `${error.path} không hợp lệ: ${error.value}`;
 	return new BadRequestError(message);
 };
 
 const handleJWTError = () => {
-	return new UnauthorizedError('Invalid token');
+	return new UnauthorizedError('Token không hợp lệ');
 };
 
 const handleJWTExpiredError = () => {
-	return new UnauthorizedError('Token expired');
+	return new UnauthorizedError('Token đã hết hạn');
 };
 
 module.exports = {

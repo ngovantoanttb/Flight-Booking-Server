@@ -30,7 +30,7 @@ class UserBookingLookupController {
 			const { bookingReference } = req.params;
 
 			if (!bookingReference) {
-				return sendError(res, 'Booking reference is required', 400);
+				return sendError(res, 'Mã đặt chỗ là bắt buộc', 400);
 			}
 
 			// Find booking by reference
@@ -64,7 +64,7 @@ class UserBookingLookupController {
 			});
 
 			if (!booking) {
-				return sendNotFound(res, 'Booking not found');
+				return sendNotFound(res, 'Không tìm thấy đặt chỗ');
 			}
 
 			// Get booking details separately to avoid complex nested includes

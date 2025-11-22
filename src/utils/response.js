@@ -34,23 +34,23 @@ class ApiResponse {
 		return new ApiResponse(false, message, null, { errors });
 	}
 
-	static notFound(message = 'Resource not found') {
+	static notFound(message = 'Không tìm thấy tài nguyên') {
 		return new ApiResponse(false, message);
 	}
 
-	static unauthorized(message = 'Unauthorized access') {
+	static unauthorized(message = 'Không có quyền truy cập') {
 		return new ApiResponse(false, message);
 	}
 
-	static forbidden(message = 'Forbidden access') {
+	static forbidden(message = 'Truy cập bị cấm') {
 		return new ApiResponse(false, message);
 	}
 
-	static conflict(message = 'Resource conflict') {
+	static conflict(message = 'Xung đột tài nguyên') {
 		return new ApiResponse(false, message);
 	}
 
-	static serverError(message = 'Internal server error') {
+	static serverError(message = 'Lỗi máy chủ nội bộ') {
 		return new ApiResponse(false, message);
 	}
 }
@@ -121,27 +121,27 @@ const sendValidationError = (res, message, errors) => {
 	return sendResponse(res, StatusCodes.UNPROCESSABLE_ENTITY, response);
 };
 
-const sendNotFound = (res, message = 'Resource not found') => {
+const sendNotFound = (res, message = 'Không tìm thấy tài nguyên') => {
 	const response = ApiResponse.notFound(message);
 	return sendResponse(res, StatusCodes.NOT_FOUND, response);
 };
 
-const sendUnauthorized = (res, message = 'Unauthorized access') => {
+const sendUnauthorized = (res, message = 'Không có quyền truy cập') => {
 	const response = ApiResponse.unauthorized(message);
 	return sendResponse(res, StatusCodes.UNAUTHORIZED, response);
 };
 
-const sendForbidden = (res, message = 'Forbidden access') => {
+const sendForbidden = (res, message = 'Truy cập bị cấm') => {
 	const response = ApiResponse.forbidden(message);
 	return sendResponse(res, StatusCodes.FORBIDDEN, response);
 };
 
-const sendConflict = (res, message = 'Resource conflict') => {
+const sendConflict = (res, message = 'Xung đột tài nguyên') => {
 	const response = ApiResponse.conflict(message);
 	return sendResponse(res, StatusCodes.CONFLICT, response);
 };
 
-const sendServerError = (res, message = 'Internal server error') => {
+const sendServerError = (res, message = 'Lỗi máy chủ nội bộ') => {
 	const response = ApiResponse.serverError(message);
 	return sendResponse(res, StatusCodes.INTERNAL_SERVER_ERROR, response);
 };

@@ -15,76 +15,76 @@ const router = express.Router();
 const checkAvailabilityValidation = [
 	body('flight_id')
 		.isInt({ min: 1 })
-		.withMessage('Flight ID must be a positive integer'),
+		.withMessage('ID chuyến bay phải là số nguyên dương'),
 	body('class_id')
 		.isInt({ min: 1 })
-		.withMessage('Class ID must be a positive integer'),
+		.withMessage('ID hạng vé phải là số nguyên dương'),
 	body('passengers')
 		.isInt({ min: 1, max: 9 })
-		.withMessage('Passengers must be between 1 and 9'),
+		.withMessage('Số hành khách phải từ 1 đến 9'),
 ];
 
 const createBookingValidation = [
 	body('flight_id')
 		.isInt({ min: 1 })
-		.withMessage('Flight ID must be a positive integer'),
+		.withMessage('ID chuyến bay phải là số nguyên dương'),
 	body('class_id')
 		.isInt({ min: 1 })
-		.withMessage('Class ID must be a positive integer'),
+		.withMessage('ID hạng vé phải là số nguyên dương'),
 	body('passengers')
 		.isArray({ min: 1, max: 9 })
-		.withMessage('Passengers must be an array with 1-9 items'),
+		.withMessage('Hành khách phải là mảng từ 1-9 phần tử'),
 	body('passengers.*.first_name')
 		.notEmpty()
-		.withMessage('First name is required for each passenger'),
+		.withMessage('Họ của mỗi hành khách là bắt buộc'),
 	body('passengers.*.last_name')
 		.notEmpty()
-		.withMessage('Last name is required for each passenger'),
+		.withMessage('Tên của mỗi hành khách là bắt buộc'),
 	body('passengers.*.date_of_birth')
 		.optional()
 		.isISO8601()
-		.withMessage('Invalid date of birth format'),
+		.withMessage('Định dạng ngày sinh không hợp lệ'),
 	body('passengers.*.gender')
 		.optional()
 		.isIn(['M', 'F', 'Other'])
-		.withMessage('Gender must be M, F, or Other'),
+		.withMessage('Giới tính phải là M, F, hoặc Other'),
 	body('passengers.*.nationality')
 		.optional()
 		.isLength({ min: 2, max: 3 })
-		.withMessage('Nationality must be 2-3 characters'),
+		.withMessage('Quốc tịch phải từ 2-3 ký tự'),
 	body('passengers.*.passport_number')
 		.optional()
 		.isLength({ min: 6, max: 20 })
-		.withMessage('Passport number must be 6-20 characters'),
+		.withMessage('Số hộ chiếu phải từ 6-20 ký tự'),
 	body('contact_info.email')
 		.optional()
 		.isEmail()
-		.withMessage('Invalid email format'),
+		.withMessage('Định dạng email không hợp lệ'),
 	body('contact_info.phone')
 		.optional()
 		.isLength({ min: 10, max: 15 })
-		.withMessage('Phone number must be 10-15 characters'),
+		.withMessage('Số điện thoại phải từ 10-15 ký tự'),
 	body('contact_info.citizen_id')
 		.optional()
 		.isLength({ min: 12, max: 12 })
 		.matches(/^\d{12}$/)
-		.withMessage('Citizen ID must be exactly 12 digits'),
+		.withMessage('Số CCCD/CMND phải có đúng 12 chữ số'),
 	body('promotion_code')
 		.optional()
 		.isLength({ min: 3, max: 20 })
-		.withMessage('Promotion code must be 3-20 characters'),
+		.withMessage('Mã khuyến mãi phải từ 3-20 ký tự'),
 ];
 
 const flightIdValidation = [
 	param('flightId')
 		.isInt({ min: 1 })
-		.withMessage('Flight ID must be a positive integer'),
+		.withMessage('ID chuyến bay phải là số nguyên dương'),
 ];
 
 const bookingIdValidation = [
 	param('bookingId')
 		.isInt({ min: 1 })
-		.withMessage('Booking ID must be a positive integer'),
+		.withMessage('ID đặt chỗ phải là số nguyên dương'),
 ];
 
 // Public routes

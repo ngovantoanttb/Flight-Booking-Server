@@ -14,12 +14,12 @@ const validate = require('../middleware/validate');
 const bookingReferenceValidation = [
 	param('bookingReference')
 		.notEmpty()
-		.withMessage('Booking reference is required')
+		.withMessage('Mã đặt chỗ là bắt buộc')
 		.isLength({ min: 6, max: 10 })
-		.withMessage('Booking reference must be between 6 and 10 characters')
+		.withMessage('Mã đặt chỗ phải từ 6 đến 10 ký tự')
 		.matches(/^[A-Z0-9]+$/)
 		.withMessage(
-			'Booking reference must contain only uppercase letters and numbers'
+			'Mã đặt chỗ chỉ được chứa chữ cái in hoa và số'
 		),
 ];
 

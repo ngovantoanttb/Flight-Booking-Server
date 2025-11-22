@@ -432,7 +432,7 @@ const bookingController = {
 							);
 							if (!legSeat)
 								throw new Error(
-									`Seat ${p.seat_number} not found for leg`
+									`Không tìm thấy ghế ${p.seat_number} cho chặng này`
 								);
 							await legSeat.update({ is_available: false });
 						} else {
@@ -469,13 +469,13 @@ const bookingController = {
 							(s) => s.seat_number === p.seat_number
 						);
 						if (!seat)
-							throw new Error(`Seat ${p.seat_number} not found`);
+							throw new Error(`Không tìm thấy ghế ${p.seat_number}`);
 						await seat.update({ is_available: false });
 					} else {
 						seat = seats[i];
 						if (!seat)
 							throw new Error(
-								`No seat allocated for passenger ${i + 1}`
+								`Không có ghế được phân bổ cho hành khách ${i + 1}`
 							);
 					}
 					await BookingDetail.create({

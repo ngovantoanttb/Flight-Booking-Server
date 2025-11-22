@@ -94,7 +94,7 @@ class ServicePackageController {
 			});
 
 			if (!flight) {
-				return sendNotFound(res, 'Flight not found');
+				return sendNotFound(res, 'Không tìm thấy chuyến bay');
 			}
 
 			const whereClause = {
@@ -278,7 +278,7 @@ class ServicePackageController {
 			});
 
 			if (!servicePackage) {
-				return sendNotFound(res, 'Service package not found');
+				return sendNotFound(res, 'Không tìm thấy gói dịch vụ');
 			}
 
 			// Transform response to include service_package_id

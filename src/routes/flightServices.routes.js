@@ -14,44 +14,44 @@ router.use(authorize('admin'));
 
 // Validation rules
 const baggageServiceValidation = [
-	body('weight_kg').isDecimal().withMessage('Weight must be a valid decimal'),
-	body('price').isDecimal().withMessage('Price must be a valid decimal'),
+	body('weight_kg').isDecimal().withMessage('Trọng lượng phải là số thập phân hợp lệ'),
+	body('price').isDecimal().withMessage('Giá phải là số thập phân hợp lệ'),
 	body('description')
 		.optional()
 		.isString()
-		.withMessage('Description must be a string'),
+		.withMessage('Mô tả phải là chuỗi'),
 	body('is_active')
 		.optional()
 		.isBoolean()
-		.withMessage('is_active must be a boolean'),
+		.withMessage('Trường is_active phải là boolean'),
 ];
 
 const mealServiceValidation = [
 	body('meal_name')
 		.isString()
 		.isLength({ min: 1, max: 100 })
-		.withMessage('Meal name is required and must be 1-100 characters'),
+		.withMessage('Tên bữa ăn là bắt buộc và phải từ 1-100 ký tự'),
 	body('meal_description')
 		.optional()
 		.isString()
-		.withMessage('Meal description must be a string'),
-	body('price').isDecimal().withMessage('Price must be a valid decimal'),
+		.withMessage('Mô tả bữa ăn phải là chuỗi'),
+	body('price').isDecimal().withMessage('Giá phải là số thập phân hợp lệ'),
 	body('is_vegetarian')
 		.optional()
 		.isBoolean()
-		.withMessage('is_vegetarian must be a boolean'),
+		.withMessage('Trường is_vegetarian phải là boolean'),
 	body('is_halal')
 		.optional()
 		.isBoolean()
-		.withMessage('is_halal must be a boolean'),
+		.withMessage('Trường is_halal phải là boolean'),
 	body('is_active')
 		.optional()
 		.isBoolean()
-		.withMessage('is_active must be a boolean'),
+		.withMessage('Trường is_active phải là boolean'),
 ];
 
 const flightIdValidation = [
-	param('flightId').isInt().withMessage('Flight ID must be a valid integer'),
+	param('flightId').isInt().withMessage('ID chuyến bay phải là số nguyên hợp lệ'),
 ];
 
 // Get flight baggage services
@@ -123,7 +123,7 @@ router.put(
 	flightIdValidation,
 	param('serviceId')
 		.isInt()
-		.withMessage('Service ID must be a valid integer'),
+		.withMessage('ID dịch vụ phải là số nguyên hợp lệ'),
 	baggageServiceValidation,
 	validateRequest,
 	async (req, res) => {
@@ -161,7 +161,7 @@ router.delete(
 	flightIdValidation,
 	param('serviceId')
 		.isInt()
-		.withMessage('Service ID must be a valid integer'),
+		.withMessage('ID dịch vụ phải là số nguyên hợp lệ'),
 	validateRequest,
 	async (req, res) => {
 		try {
@@ -254,7 +254,7 @@ router.put(
 	flightIdValidation,
 	param('serviceId')
 		.isInt()
-		.withMessage('Service ID must be a valid integer'),
+		.withMessage('ID dịch vụ phải là số nguyên hợp lệ'),
 	mealServiceValidation,
 	validateRequest,
 	async (req, res) => {
@@ -291,7 +291,7 @@ router.delete(
 	flightIdValidation,
 	param('serviceId')
 		.isInt()
-		.withMessage('Service ID must be a valid integer'),
+		.withMessage('ID dịch vụ phải là số nguyên hợp lệ'),
 	validateRequest,
 	async (req, res) => {
 		try {

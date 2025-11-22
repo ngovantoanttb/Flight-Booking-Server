@@ -15,40 +15,40 @@ const router = express.Router();
 const promotionIdValidation = [
   param('promotionId')
     .isInt({ min: 1 })
-    .withMessage('Promotion ID must be a positive integer')
+    .withMessage('ID khuyến mãi phải là số nguyên dương')
 ];
 
 const promotionValidation = [
   body('code')
     .notEmpty()
-    .withMessage('Promotion code is required')
+    .withMessage('Mã khuyến mãi là bắt buộc')
     .isLength({ min: 3, max: 20 })
-    .withMessage('Promotion code must be between 3 and 20 characters'),
+    .withMessage('Mã khuyến mãi phải từ 3 đến 20 ký tự'),
   body('description')
     .notEmpty()
-    .withMessage('Description is required'),
+    .withMessage('Mô tả là bắt buộc'),
   body('discount_percentage')
     .isFloat({ min: 0, max: 100 })
-    .withMessage('Discount percentage must be between 0 and 100'),
+    .withMessage('Phần trăm giảm giá phải từ 0 đến 100'),
   body('discount_amount')
     .optional()
     .isFloat({ min: 0 })
-    .withMessage('Discount amount must be a positive number'),
+    .withMessage('Số tiền giảm giá phải là số dương'),
   body('start_date')
     .isISO8601()
-    .withMessage('Start date must be a valid date'),
+    .withMessage('Ngày bắt đầu phải là ngày hợp lệ'),
   body('end_date')
     .isISO8601()
-    .withMessage('End date must be a valid date')
+    .withMessage('Ngày kết thúc phải là ngày hợp lệ')
     .custom((value, { req }) => {
       if (new Date(value) <= new Date(req.body.start_date)) {
-        throw new Error('End date must be after start date');
+        throw new Error('Ngày kết thúc phải sau ngày bắt đầu');
       }
       return true;
     }),
   body('is_active')
     .isBoolean()
-    .withMessage('Is active must be a boolean')
+    .withMessage('Trường is_active phải là boolean')
 ];
 
 // Public routes
@@ -59,7 +59,7 @@ router.get(
 
 router.post(
   '/verify',
-  body('code').notEmpty().withMessage('Promotion code is required'),
+  body('code').notEmpty().withMessage('Mã khuyến mãi là bắt buộc'),
   validate,
   promotionController.verifyPromotionCode
 );

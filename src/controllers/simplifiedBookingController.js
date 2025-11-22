@@ -37,7 +37,7 @@ const simplifiedBookingController = {
 			if (!flight_id || !class_id || !passengers || passengers <= 0) {
 				return sendError(
 					res,
-					'Missing required parameters: flight_id, class_id, passengers',
+					'Thiếu tham số bắt buộc: flight_id, class_id, passengers',
 					400
 				);
 			}
@@ -54,7 +54,7 @@ const simplifiedBookingController = {
 				return sendError(
 					res,
 					{
-						message: 'Not enough seats available',
+						message: 'Không đủ ghế trống',
 						details: {
 							requested: passengers,
 							available: availability.available_seats,
@@ -105,7 +105,7 @@ const simplifiedBookingController = {
 			) {
 				return sendError(
 					res,
-					'Missing required parameters: flight_id, class_id, passengers',
+					'Thiếu tham số bắt buộc: flight_id, class_id, passengers',
 					400
 				);
 			}
@@ -113,7 +113,7 @@ const simplifiedBookingController = {
 			// Check if flight exists
 			const flight = await Flight.findByPk(flight_id);
 			if (!flight) {
-				return sendError(res, 'Flight not found', 404);
+				return sendError(res, 'Không tìm thấy chuyến bay', 404);
 			}
 
 			// Check seat availability
@@ -274,7 +274,7 @@ const simplifiedBookingController = {
 			const { flightId } = req.params;
 
 			if (!flightId || isNaN(parseInt(flightId))) {
-				return sendError(res, 'Invalid flight ID', 400);
+				return sendError(res, 'ID chuyến bay không hợp lệ', 400);
 			}
 
 			const seatSummary =
@@ -313,7 +313,7 @@ const simplifiedBookingController = {
 			}
 
 			if (!bookingId || isNaN(parseInt(bookingId))) {
-				return sendError(res, 'Invalid booking ID', 400);
+				return sendError(res, 'ID đặt chỗ không hợp lệ', 400);
 			}
 
 			// Find booking
@@ -336,7 +336,7 @@ const simplifiedBookingController = {
 			});
 
 			if (!booking) {
-				return sendError(res, 'Booking not found', 404);
+				return sendError(res, 'Không tìm thấy đặt chỗ', 404);
 			}
 
 			if (booking.status === 'cancelled') {

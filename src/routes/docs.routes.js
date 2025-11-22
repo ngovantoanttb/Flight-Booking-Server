@@ -6,6 +6,7 @@
 const express = require('express');
 const path = require('path');
 const router = express.Router();
+const config = require('../config/env.config');
 
 // Serve static files from views directory
 router.use(
@@ -23,7 +24,7 @@ router.get('/status', async (req, res) => {
 	try {
 		// Check if main API is running
 		const fetch = require('node-fetch');
-		const response = await fetch('http://localhost:3000/api/health');
+		const response = await fetch(`${config.BASE_URL}/api/health`);
 
 		if (response.ok) {
 			res.json({

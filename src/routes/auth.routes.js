@@ -8,77 +8,77 @@ const router = express.Router();
 
 // Validation rules
 const registerValidation = [
-	body('email').isEmail().withMessage('Please provide a valid email'),
+	body('email').isEmail().withMessage('Vui lòng cung cấp email hợp lệ'),
 	body('password')
 		.isLength({ min: 6 })
-		.withMessage('Password must be at least 6 characters long'),
-	body('first_name').notEmpty().withMessage('First name is required'),
-	body('last_name').notEmpty().withMessage('Last name is required'),
+		.withMessage('Mật khẩu phải có ít nhất 6 ký tự'),
+	body('first_name').notEmpty().withMessage('Họ là bắt buộc'),
+	body('last_name').notEmpty().withMessage('Tên là bắt buộc'),
 	body('citizen_id')
 		.optional()
 		.isLength({ min: 12, max: 12 })
-		.withMessage('Citizen ID must be exactly 12 digits')
+		.withMessage('Số CCCD/CMND phải có đúng 12 chữ số')
 		.matches(/^\d{12}$/)
-		.withMessage('Citizen ID must contain only digits'),
+		.withMessage('Số CCCD/CMND chỉ được chứa chữ số'),
 ];
 
 const loginValidation = [
-	body('email').isEmail().withMessage('Please provide a valid email'),
-	body('password').notEmpty().withMessage('Password is required'),
+	body('email').isEmail().withMessage('Vui lòng cung cấp email hợp lệ'),
+	body('password').notEmpty().withMessage('Mật khẩu là bắt buộc'),
 ];
 
 const refreshTokenValidation = [
-	body('refreshToken').notEmpty().withMessage('Refresh token is required'),
+	body('refreshToken').notEmpty().withMessage('Refresh token là bắt buộc'),
 ];
 
 const logoutValidation = [
 	body('refreshToken')
 		.optional()
 		.notEmpty()
-		.withMessage('Refresh token must not be empty if provided'),
+		.withMessage('Refresh token không được để trống nếu được cung cấp'),
 ];
 
 const updateProfileValidation = [
 	body('first_name')
 		.optional()
 		.notEmpty()
-		.withMessage('First name must not be empty'),
+		.withMessage('Họ không được để trống'),
 	body('last_name')
 		.optional()
 		.notEmpty()
-		.withMessage('Last name must not be empty'),
+		.withMessage('Tên không được để trống'),
 	body('middle_name')
 		.optional()
 		.isString()
-		.withMessage('Middle name must be a string'),
+		.withMessage('Tên đệm phải là chuỗi'),
 	body('title')
 		.optional()
 		.isIn(['Mr', 'Mrs', 'Ms', 'Dr', 'Prof'])
-		.withMessage('Title must be one of: Mr, Mrs, Ms, Dr, Prof'),
+		.withMessage('Danh xưng phải là một trong: Mr, Mrs, Ms, Dr, Prof'),
 	body('phone')
 		.optional()
 		.isString()
-		.withMessage('Phone must be a string'),
+		.withMessage('Số điện thoại phải là chuỗi'),
 	body('date_of_birth')
 		.optional()
 		.isISO8601()
 		.toDate()
-		.withMessage('Date of birth must be a valid date'),
+		.withMessage('Ngày sinh phải là ngày hợp lệ'),
 	body('citizen_id')
 		.optional()
 		.isLength({ min: 12, max: 12 })
-		.withMessage('Citizen ID must be exactly 12 digits')
+		.withMessage('Số CCCD/CMND phải có đúng 12 chữ số')
 		.matches(/^\d{12}$/)
-		.withMessage('Citizen ID must contain only digits'),
+		.withMessage('Số CCCD/CMND chỉ được chứa chữ số'),
 ];
 
 const changePasswordValidation = [
 	body('current_password')
 		.notEmpty()
-		.withMessage('Current password is required'),
+		.withMessage('Mật khẩu hiện tại là bắt buộc'),
 	body('new_password')
 		.isLength({ min: 6 })
-		.withMessage('New password must be at least 6 characters long'),
+		.withMessage('Mật khẩu mới phải có ít nhất 6 ký tự'),
 ];
 
 // Routes
@@ -133,7 +133,7 @@ router.get(
 router.get('/google/failure', (req, res) => {
 	res.status(401).json({
 		success: false,
-		message: 'Google authentication failed',
+		message: 'Xác thực Google thất bại',
 	});
 });
 
