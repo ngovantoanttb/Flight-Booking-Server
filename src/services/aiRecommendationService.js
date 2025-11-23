@@ -313,6 +313,18 @@ class AIRecommendationService extends BaseService {
 			// Find flights
 			const flights = await Flight.findAll({
 				where: whereClause,
+				attributes: [
+					'flight_id',
+					'flight_number',
+					'departure_time',
+					'arrival_time',
+					'status',
+					'economy_price',
+					'business_price',
+					'departure_airport_id',
+					'arrival_airport_id',
+					'airline_id',
+				],
 				include: [
 					{
 						model: Airline,
@@ -354,7 +366,7 @@ class AIRecommendationService extends BaseService {
 							is_available: true,
 						},
 						attributes: ['seat_id', 'seat_number', 'price'],
-						required: true,
+						required: false, // Changed to false to include flights even without available seats
 					},
 				],
 				order: [['departure_time', 'ASC']],
@@ -456,6 +468,37 @@ class AIRecommendationService extends BaseService {
 					reasons.push("Popular route you've booked before");
 				}
 
+				// Calculate starting price
+				let startingPrice = null;
+				if (availableSeats.length > 0) {
+					// Lấy giá thấp nhất từ các ghế available
+					const prices = availableSeats
+						.map((seat) => {
+							const price = seat.price;
+							if (price === null || price === undefined) return null;
+							return typeof price === 'string' ? parseFloat(price) : price;
+						})
+						.filter((p) => p !== null && !isNaN(p) && p > 0);
+					
+					if (prices.length > 0) {
+						startingPrice = Math.min(...prices);
+					}
+				}
+				
+				// Fallback: Nếu không có giá từ seats, dùng giá từ Flight model
+				if (startingPrice === null || startingPrice === 0) {
+					// Ưu tiên economy_price, nếu không có thì dùng business_price
+					if (flight.economy_price) {
+						startingPrice = typeof flight.economy_price === 'string' 
+							? parseFloat(flight.economy_price) 
+							: flight.economy_price;
+					} else if (flight.business_price) {
+						startingPrice = typeof flight.business_price === 'string'
+							? parseFloat(flight.business_price)
+							: flight.business_price;
+					}
+				}
+
 				// Format flight data
 				const formattedFlight = {
 					flight_id: flight.flight_id,
@@ -500,14 +543,7 @@ class AIRecommendationService extends BaseService {
 					),
 					status: flight.status,
 					available_seats: availableSeats.length,
-					starting_price:
-						availableSeats.length > 0
-							? Math.min(
-									...availableSeats.map((seat) =>
-										parseFloat(seat.price || 0)
-									)
-							  )
-							: null,
+					starting_price: startingPrice,
 					recommendation_score: score,
 					recommendation_reasons: reasons,
 				};

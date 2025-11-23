@@ -37,6 +37,15 @@ const Flight = sequelize.define(
 		arrival_time: {
 			type: DataTypes.DATE,
 			allowNull: false,
+			validate: {
+				isAfterDeparture(value) {
+					// Get departure_time from instance (could be from this or from dataValues)
+					const departureTime = this.departure_time || this.dataValues?.departure_time;
+					if (departureTime && value && new Date(value) <= new Date(departureTime)) {
+						throw new Error('Thời gian đến phải sau thời gian khởi hành');
+					}
+				},
+			},
 		},
 		status: {
 			type: DataTypes.ENUM(
@@ -82,6 +91,28 @@ const Flight = sequelize.define(
 				fields: ['arrival_time'],
 			},
 		],
+		hooks: {
+			beforeValidate: (flight) => {
+				// Validate arrival_time > departure_time
+				if (
+					flight.departure_time &&
+					flight.arrival_time &&
+					new Date(flight.arrival_time) <= new Date(flight.departure_time)
+				) {
+					throw new Error('Thời gian đến phải sau thời gian khởi hành');
+				}
+			},
+			beforeUpdate: (flight) => {
+				// Validate on update as well
+				if (
+					flight.departure_time &&
+					flight.arrival_time &&
+					new Date(flight.arrival_time) <= new Date(flight.departure_time)
+				) {
+					throw new Error('Thời gian đến phải sau thời gian khởi hành');
+				}
+			},
+		},
 	}
 );
 

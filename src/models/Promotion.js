@@ -38,6 +38,15 @@ const Promotion = sequelize.define(
 		end_date: {
 			type: DataTypes.DATEONLY,
 			allowNull: false,
+			validate: {
+				isAfterStartDate(value) {
+					// Get start_date from instance (could be from this or from dataValues)
+					const startDate = this.start_date || this.dataValues?.start_date;
+					if (startDate && value && new Date(value) <= new Date(startDate)) {
+						throw new Error('Ngày kết thúc phải sau ngày bắt đầu');
+					}
+				},
+			},
 		},
 		is_active: {
 			type: DataTypes.BOOLEAN,
@@ -71,6 +80,28 @@ const Promotion = sequelize.define(
 				fields: ['start_date', 'end_date'],
 			},
 		],
+		hooks: {
+			beforeValidate: (promotion) => {
+				// Validate end_date > start_date
+				if (
+					promotion.start_date &&
+					promotion.end_date &&
+					new Date(promotion.end_date) <= new Date(promotion.start_date)
+				) {
+					throw new Error('Ngày kết thúc phải sau ngày bắt đầu');
+				}
+			},
+			beforeUpdate: (promotion) => {
+				// Validate on update as well
+				if (
+					promotion.start_date &&
+					promotion.end_date &&
+					new Date(promotion.end_date) <= new Date(promotion.start_date)
+				) {
+					throw new Error('Ngày kết thúc phải sau ngày bắt đầu');
+				}
+			},
+		},
 	}
 );
 
