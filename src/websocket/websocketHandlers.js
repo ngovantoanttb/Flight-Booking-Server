@@ -19,6 +19,7 @@ const MESSAGE_TYPES = {
   UNSUBSCRIBE_BOOKING: 'unsubscribe_booking',
   GET_FLIGHT_STATUS: 'get_flight_status',
   GET_BOOKING_STATUS: 'get_booking_status',
+  GET_PENDING_CANCELLATIONS: 'get_pending_cancellations',
   PING: 'ping',
   
   // Server to Client
@@ -26,6 +27,11 @@ const MESSAGE_TYPES = {
   BOOKING_UPDATE: 'booking_update',
   FLIGHT_STATUS: 'flight_status',
   BOOKING_STATUS: 'booking_status',
+  CANCELLATION_REQUESTED: 'cancellation_requested',
+  CANCELLATION_APPROVED: 'cancellation_approved',
+  CANCELLATION_REJECTED: 'cancellation_rejected',
+  ADMIN_CANCELLATION_REQUEST: 'admin_cancellation_request',
+  PENDING_CANCELLATION_COUNT: 'pending_cancellation_count',
   NOTIFICATION: 'notification',
   ERROR: 'error',
   PONG: 'pong',
