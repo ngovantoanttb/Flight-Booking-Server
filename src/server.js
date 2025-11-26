@@ -3,6 +3,8 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const passport = require('passport');
+const http = require('http');
+const WebSocket = require('ws');
 const config = require('./config/env.config');
 const { connectDatabase } = require('./config/database');
 const logger = require('./utils/logger');
@@ -12,6 +14,7 @@ const {
 	handleUnhandledRejection,
 	handleUncaughtException,
 } = require('./middleware/errorHandler');
+const { setupWebSocketServer } = require('./websocket/websocketServer');
 
 // Initialize express app
 const app = express();
@@ -107,6 +110,11 @@ app.get('/ai-test', (req, res) => {
 	res.sendFile('ai-test.html', { root: 'views' });
 });
 
+// WebSocket test page
+app.get('/websocket-test', (req, res) => {
+	res.sendFile('websocket-test.html', { root: 'views' });
+});
+
 // Payment success page (handled by payment controller)
 const { handlePaymentSuccess } = require('./controllers/paymentController');
 app.get('/payment/success', handlePaymentSuccess);
@@ -123,10 +131,17 @@ app.use('*', (req, res) => {
 // Global error handler
 app.use(errorHandler);
 
+// Create HTTP server
+const server = http.createServer(app);
+
+// Setup WebSocket server
+const wss = setupWebSocketServer(server);
+
 // Start server
 const PORT = config.PORT;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
 	logger.info(`Server running in ${config.NODE_ENV} mode on port ${PORT}`);
+	logger.info(`WebSocket server is ready for connections`);
 });
 
 // Handle unhandled promise rejections
@@ -135,4 +150,4 @@ process.on('unhandledRejection', handleUnhandledRejection);
 // Handle uncaught exceptions
 process.on('uncaughtException', handleUncaughtException);
 
-module.exports = app;
+module.exports = { app, server, wss };
