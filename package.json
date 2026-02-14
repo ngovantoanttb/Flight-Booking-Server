@@ -34,7 +34,7 @@
     "cors": "^2.8.5",
     "crypto-js": "^4.2.0",
     "dotenv": "^16.3.1",
-    "express": "^4.18.2",
+    "express": "^4.22.1",
     "express-validator": "^7.0.1",
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
@@ -48,7 +48,7 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.1",
     "puppeteer": "^24.26.1",
-    "qs": "^6.11.2",
+    "qs": "^6.14.2",
     "sequelize": "^6.35.1",
     "winston": "^3.11.0",
     "xlsx": "^0.18.5"
